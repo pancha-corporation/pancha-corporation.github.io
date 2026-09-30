@@ -75,7 +75,7 @@ const translations = {
             panchaTool2: 'A lost version of Pancha Tool that has been restored.',
             panchaTool25: 'An intermediate version before the great pancha tool 3.',
             panchaTool3: 'The final? version of pancha tools.',
-            panchaLauncher: 'A launcher for Pancha Corp products.',
+            panchaLauncher: 'A launcher for Pancha corporation products.',
             panchality: 'future minecraft DLC.',
             kabanlo: 'The best utility on the market for counting pigs, no analogues. Sold on the darknet for $30,000,000, but in PanchaLoader it comes in the basic package thanks to our connections.'
         }
@@ -156,7 +156,7 @@ const translations = {
             panchaTool2: 'Потерянная версия Pancha Tool, которая была восстановлена.',
             panchaTool25: 'Промежуточная версия перед великим pancha tool 3.',
             panchaTool3: 'Финальная? версия pancha tools.',
-            panchaLauncher: 'Лаунчер для продуктов Pancha Corp.',
+            panchaLauncher: 'Лаунчер для продуктов от Pancha corporation.',
             panchality: 'Будущее DLC для Minecraft.',
             kabanlo: 'Лучшая утилита на рынке для подсчёта свиней, аналогов нет. Продаётся в даркнете за $30,000,000, но в PanchaLoader идёт в базовом пакете благодаря нашим связям.'
         }
