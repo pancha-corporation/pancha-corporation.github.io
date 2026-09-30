@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="../sidebar.css" />
     <link rel="stylesheet" href="../content.css" />
     <link rel="stylesheet" href="../info.css" />
+    <link rel="stylesheet" href="../mobile.css" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Manrope:wght@800&display=swap" rel="stylesheet" />
 </head>
 <body class="panel">
@@ -90,6 +91,11 @@
 
         <main class="main">
             <header class="topbar">
+                <button class="burger-btn" id="burgerBtn" type="button" aria-label="Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
                 <button class="detail-back" id="detailBackBtn" type="button">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <line x1="19" y1="12" x2="5" y2="12"/>
@@ -303,6 +309,8 @@
             </div>
         </main>
     </div>
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
     <script src="../translations.js"></script>
     <script src="../script.js"></script>
