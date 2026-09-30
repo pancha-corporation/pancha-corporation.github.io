@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Offline — Pancha Corporation</title>
+    <meta name="robots" content="noindex, follow" />
+
+    <link rel="icon" type="image/webp" href="/avatar2.webp" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #010205;
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        .offline-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.4rem;
+            text-align: center;
+            max-width: 440px;
+            width: 100%;
+        }
+        .offline-avatar {
+            width: 96px;
+            height: 96px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #0d0d0d;
+            display: block;
+        }
+        .offline-title {
+            font-size: 1.45rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+        .offline-error {
+            font-size: 1rem;
+            color: #8a8a8a;
+            line-height: 1.55;
+            font-weight: 400;
+        }
+        .offline-btn {
+            margin-top: 0.4rem;
+            padding: 0.65rem 1.5rem;
+            border-radius: 999px;
+            background: #ffffff;
+            color: #0a0b0e;
+            border: none;
+            font-family: inherit;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s, opacity 0.2s;
+        }
+        .offline-btn:hover {
+            background: #d8d8d8;
+        }
+        .offline-btn[disabled] {
+            opacity: 0.6;
+            cursor: default;
+            pointer-events: none;
+        }
+        @media (max-width: 480px) {
+            .offline-avatar {
+                width: 76px;
+                height: 76px;
+            }
+            .offline-title {
+                font-size: 1.2rem;
+            }
+            .offline-error {
+                font-size: 0.92rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="offline-wrap">
+        <img src="/avatar2.webp" alt="Pancha" class="offline-avatar" onerror="this.style.display='none';">
+        <div class="offline-title">Pancha corporation</div>
+        <div class="offline-error" id="offlineError">No internet connection.</div>
+        <button class="offline-btn" id="offlineRetry">Try again</button>
+    </div>
+
+    <script>
+        (function () {
+            const lang = localStorage.getItem('lang') || 'en';
+            const texts = {
+                en: {
+                    error: 'No internet connection.',
+                    retry: 'Try again'
+                },
+                ru: {
+                    error: 'Нет подключения к интернету.',
+                    retry: 'Попробовать снова'
+                }
+            };
+            const t = texts[lang] || texts.en;
+            document.getElementById('offlineError').textContent = t.error;
+            document.getElementById('offlineRetry').textContent = t.retry;
+            document.documentElement.lang = lang;
+
+            const retryBtn = document.getElementById('offlineRetry');
+            retryBtn.addEventListener('click', function () {
+                retryBtn.disabled = true;
+                retryBtn.textContent = '...';
+                setTimeout(() => {
+                    location.reload();
+                }, 400);
+            });
+        })();
+    </script>
+</body>
+</html>

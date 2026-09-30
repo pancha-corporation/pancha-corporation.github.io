@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>404 — Pancha Corporation</title>
+    <meta name="robots" content="noindex, follow" />
+
+    <link rel="icon" type="image/webp" href="/avatar2.webp" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #010205;
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        .err-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.4rem;
+            text-align: center;
+            max-width: 440px;
+            width: 100%;
+        }
+        .err-avatar {
+            width: 96px;
+            height: 96px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #0d0d0d;
+            display: block;
+        }
+        .err-title {
+            font-size: 1.45rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+        .err-code {
+            font-size: 3.4rem;
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            line-height: 1;
+            color: #ffffff;
+        }
+        .err-desc {
+            font-size: 1rem;
+            color: #8a8a8a;
+            line-height: 1.55;
+            font-weight: 400;
+        }
+        .err-btn {
+            margin-top: 0.4rem;
+            padding: 0.65rem 1.5rem;
+            border-radius: 999px;
+            background: #ffffff;
+            color: #0a0b0e;
+            border: none;
+            font-family: inherit;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .err-btn:hover {
+            background: #d8d8d8;
+        }
+        @media (max-width: 480px) {
+            .err-avatar {
+                width: 76px;
+                height: 76px;
+            }
+            .err-title {
+                font-size: 1.2rem;
+            }
+            .err-code {
+                font-size: 2.6rem;
+            }
+            .err-desc {
+                font-size: 0.92rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="err-wrap">
+        <img src="/avatar2.webp" alt="Pancha" class="err-avatar" onerror="this.style.display='none';">
+        <div class="err-title">Pancha corporation</div>
+        <div class="err-code">404</div>
+        <div class="err-desc" id="errDesc">Page not found.</div>
+        <a class="err-btn" id="errBack" href="/">Back</a>
+    </div>
+
+    <script>
+        (function () {
+            const lang = localStorage.getItem('lang') || 'en';
+            const texts = {
+                en: {
+                    desc: 'Page not found.',
+                    back: 'Back'
+                },
+                ru: {
+                    desc: 'Страница не найдена.',
+                    back: 'Назад'
+                }
+            };
+            const t = texts[lang] || texts.en;
+            document.getElementById('errDesc').textContent = t.desc;
+            document.getElementById('errBack').textContent = t.back;
+            document.documentElement.lang = lang;
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Pancha Corporation — Official</title>
+    <meta name="description" content="Official website of Pancha Corporation — software and digital products, including Pancha Launcher, Pancha Tool and other projects." />
+    <meta name="robots" content="index, follow" />
+    <meta name="google-site-verification" content="KachanProBog9911Vnatyrekrytoikot9912" />
+    <link rel="canonical" href="https://pancha-corporation.github.io/" />
+
+    <link rel="icon" type="image/webp" href="/avatar2.webp" />
+
+    <meta property="og:title" content="Pancha Corporation" />
+    <meta property="og:description" content="Official website of Pancha Corporation — software and digital products." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://pancha-corporation.github.io/" />
+    <meta property="og:image" content="https://pancha-corporation.github.io/avatar2.webp" />
+    <meta property="og:site_name" content="Pancha Corporation" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Pancha Corporation" />
+    <meta name="twitter:description" content="Official website of Pancha Corporation — software and digital products." />
+    <meta name="twitter:image" content="https://pancha-corporation.github.io/avatar2.webp" />
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Pancha Corporation",
+        "url": "https://pancha-corporation.github.io/",
+        "logo": "https://pancha-corporation.github.io/avatar2.webp",
+        "description": "Pancha Corporation is an independent organization developing software and digital products, including Pancha Launcher, Pancha Tool and other projects.",
+        "foundingDate": "2024-02",
+        "sameAs": [
+            "https://t.me/panchaCorporation",
+            "https://t.me/scary_cocoa"
+        ]
+    }
+    </script>
+
+    <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Manrope:wght@800&display=swap" rel="stylesheet" />
+</head>
+<body>
+    <header class="home-navbar">
+        <a href="/" class="home-logo">Pancha corp</a>
+        <a href="panel/" class="home-panel-link" data-i18n="panelLink">Panel →</a>
+    </header>
+
+    <div id="page-home" class="home-panel">
+        <div class="home-left">
+            <div class="home-big">
+                <span class="line">Pancha</span>
+                <span class="line">corporation</span>
+            </div>
+            <div class="home-sub">the бест компания в Morgansk!</div>
+        </div>
+        <div class="home-right">
+            <img src="main.webp" alt="Pancha" />
+        </div>
+    </div>
+
+    <footer class="footer-bar" id="footerBar">
+        <span>© 2026 Pancha corporation. All not rights reserved.</span>
+        <div class="footer-links">
+            <a href="panel/#products" data-i18n="products">Products</a>
+            <a href="panel/#contact" data-i18n="contact">Contact</a>
+        </div>
+    </footer>
+
+    <script src="translations.js"></script>
+    <script>
+        (function () {
+            function applyHomeLanguage() {
+                const lang = localStorage.getItem('lang') || 'en';
+                const t = translations[lang] || translations.en;
+                document.documentElement.lang = lang;
+
+                document.querySelectorAll('[data-i18n]').forEach(el => {
+                    const key = el.getAttribute('data-i18n');
+                    if (t[key] !== undefined) el.textContent = t[key];
+                });
+            }
+
+            applyHomeLanguage();
+            document.addEventListener('DOMContentLoaded', applyHomeLanguage);
+
+            window.addEventListener('storage', (e) => {
+                if (e.key === 'lang' || e.key === null) applyHomeLanguage();
+            });
+
+            window.addEventListener('pageshow', () => applyHomeLanguage());
+
+            document.addEventListener('visibilitychange', () => {
+                if (!document.hidden) applyHomeLanguage();
+            });
+
+            setInterval(applyHomeLanguage, 500);
+        })();
+
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('service-worker.js').catch(() => {});
+            });
+        }
+    </script>
+</body>
+</html>

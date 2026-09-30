@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Panel — Pancha Corporation</title>
+    <meta name="description" content="Pancha Corporation panel — products, changelog and contact information." />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://pancha-corporation.github.io/panel/" />
+
+    <link rel="icon" type="image/webp" href="/avatar2.webp" />
+
+    <meta property="og:title" content="Panel — Pancha Corporation" />
+    <meta property="og:description" content="Pancha Corporation panel — products, changelog and contact information." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://pancha-corporation.github.io/panel/" />
+    <meta property="og:image" content="https://pancha-corporation.github.io/avatar2.webp" />
+    <meta property="og:site_name" content="Pancha Corporation" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Panel — Pancha Corporation" />
+    <meta name="twitter:description" content="Pancha Corporation panel — products, changelog and contact information." />
+    <meta name="twitter:image" content="https://pancha-corporation.github.io/avatar2.webp" />
+
+    <link rel="stylesheet" href="../helpers.css" />
+    <link rel="stylesheet" href="../sidebar.css" />
+    <link rel="stylesheet" href="../content.css" />
+    <link rel="stylesheet" href="../info.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Manrope:wght@800&display=swap" rel="stylesheet" />
+</head>
+<body class="panel">
+    <div class="app">
+        <aside class="sidebar">
+            <a href="../" class="sidebar-logo">
+                <img src="../avatar2.webp" alt="Pancha logo" onerror="this.style.display='none';">
+                <span>Pancha corporation</span>
+            </a>
+
+            <nav class="sidebar-menu">
+                <div class="menu-item" data-page="welcome">
+                    <span class="menu-emoji">👋</span>
+                    <span data-i18n="welcome">Welcome</span>
+                </div>
+
+                <div class="menu-item" data-page="products">
+                    <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m7.5 4.27 9 5.15"/>
+                        <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/>
+                        <path d="m3.3 7 8.7 5 8.7-5"/>
+                        <path d="M12 22V12"/>
+                    </svg>
+                    <span data-i18n="products">Products</span>
+                </div>
+
+                <div class="menu-item" data-page="contact">
+                    <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect width="20" height="16" x="2" y="4" rx="2"/>
+                        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                    </svg>
+                    <span data-i18n="contact">Contact</span>
+                </div>
+
+                <div class="menu-item" data-page="changelog">
+                    <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                        <path d="M3 3v5h5"/>
+                        <path d="M12 7v5l4 2"/>
+                    </svg>
+                    <span data-i18n="changelog">Changelog</span>
+                </div>
+
+                <div class="menu-item" data-page="about">
+                    <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                        <circle cx="9" cy="7" r="4"/>
+                        <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                    </svg>
+                    <span data-i18n="about">About us</span>
+                </div>
+            </nav>
+
+            <div class="sidebar-links">
+                <a href="https://t.me/scary_cocoa" target="_blank" data-i18n="liveChannel">Live Telegram channel</a>
+                <a href="https://t.me/panchaCorporation" target="_blank" data-i18n="channel">Telegram channel</a>
+                <span class="copyright" data-i18n="copyright">© 2026 Pancha corporation</span>
+            </div>
+        </aside>
+
+        <main class="main">
+            <header class="topbar">
+                <button class="detail-back" id="detailBackBtn" type="button">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="19" y1="12" x2="5" y2="12"/>
+                        <polyline points="12 19 5 12 12 5"/>
+                    </svg>
+                    <span id="detailBackText" data-i18n="backToStore">Products</span>
+                </button>
+                <span class="topbar-title" id="topbarTitle">Products</span>
+                <div class="topbar-spacer"></div>
+                <div class="topbar-icons">
+                    <svg id="langToggle" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                    <svg id="themeToggle" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="6.34" y2="6.34"/><line x1="17.66" y1="17.66" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="6.34" y2="17.66"/><line x1="17.66" y1="6.34" x2="19.07" y2="4.93"/></svg>
+                </div>
+            </header>
+
+            <div class="content">
+                <div id="page-welcome" class="page-content">
+                    <div class="welcome-header">
+                        <h1 class="welcome-greeting" id="welcomeGreeting">Good evening 👋</h1>
+                        <div class="welcome-actions">
+                            <button class="btn-action welcome-btn" id="welcomeStoreBtn">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                                <span data-i18n="welcomeStore">Store</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="welcome-divider"></div>
+
+                    <div class="welcome-block">
+                        <div class="welcome-years" data-i18n="welcomeYears">2024 → Today</div>
+                        <div class="welcome-main">
+                            <h2 class="welcome-big" data-i18n="welcomeBig">Pancha the best cat in this planet.</h2>
+                            <div class="welcome-side">
+                                <p class="welcome-desc" data-i18n="welcomeDesc">Pancha Corporation provides myaso chotkoe realno.</p>
+                                <div class="welcome-tags" data-i18n="welcomeTags">Morgansk / Panchynez / Volgograt</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="welcome-story" data-i18n="welcomeStory">We started our journey in 2024 with a small project and gradually raised the bar — did jack shit, gained no experience and kicked dicks. In early 2025, on September 16, Pancha Corp almost came to an end. But the power of the god Pancha saved Pancha Corporation.</p>
+                </div>
+
+                <div id="page-products" class="page-content">
+                    <h1 class="content-heading" data-i18n="productsHeading">Our products</h1>
+                    <p class="content-desc" data-i18n="productsDesc">Everything we make — one place.</p>
+                    <div class="divider"></div>
+                    <div class="product-list" id="productList"></div>
+                </div>
+
+                <div id="page-contact" class="page-content">
+                    <h1 class="content-heading" data-i18n="contactHeading">Contact the developers</h1>
+                    <p class="content-desc" data-i18n="contactDesc">Reach out to us anytime.</p>
+                    <div class="divider"></div>
+                    <div class="contact-list">
+                        <div class="contact-row">
+                            <div class="contact-info">
+                                <div class="contact-label" data-i18n="emailLabel">Email</div>
+                                <div class="contact-value">panchacorporation@gmail.com</div>
+                            </div>
+                            <button class="btn-action copy-btn" data-copy="panchacorporation@gmail.com" data-i18n="copy">Copy</button>
+                        </div>
+                        <div class="contact-row">
+                            <div class="contact-info">
+                                <div class="contact-label" data-i18n="telegramLabel">Telegram</div>
+                                <div class="contact-value">@panchacorporationbot</div>
+                            </div>
+                            <button class="btn-action copy-btn" data-copy="t.me//panchacorporationbot" data-i18n="copy">Copy</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="page-changelog" class="page-content">
+                    <h1 class="content-heading" data-i18n="changelogHeading">Changes / improvements</h1>
+                    <p class="content-desc" data-i18n="changelogDesc">Updates and improvements.</p>
+                    <div class="divider"></div>
+
+                    <div class="changelog-item" data-update="1.2">
+                        <div class="product-item changelog-card">
+                            <div class="product-info">
+                                <div class="product-header">
+                                    <span class="product-name">site update 1.2</span>
+                                </div>
+                                <div class="product-description" data-i18n="latestChangelog">Latest changelog</div>
+                            </div>
+                            <div class="product-action">
+                                <button class="btn-action changelog-toggle-btn">info</button>
+                            </div>
+                        </div>
+
+                        <div class="changelog-log">
+                            <ul class="log-list">
+                                <li data-i18n="log12_1">added - Product pages</li>
+                                <li data-i18n="log12_2">added - Direct download</li>
+                                <li data-i18n="log12_3">added - Screenshots</li>
+                                <li data-i18n="log12_4">added - Header</li>
+                                <li data-i18n="log12_5">added - pancha tool sapphire</li>
+                                <li data-i18n="log12_6">added - sidebar icons</li>
+                                <li data-i18n="log12_7">changed - rounding ppx</li>
+                                <li data-i18n="log12_8">changed - color on tab hover</li>
+                                <li data-i18n="log12_9">changed - Download to GitHub</li>
+                                <li data-i18n="log12_10">reworked Changelog</li>
+                                <li data-i18n="log12_11">reworked About us</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="changelog-item" data-update="1.1">
+                        <div class="product-item changelog-card">
+                            <div class="product-info">
+                                <div class="product-header">
+                                    <span class="product-name">site update 1.1</span>
+                                </div>
+                                <div class="product-description" data-i18n="previousChangelog">Previous changelog</div>
+                            </div>
+                            <div class="product-action">
+                                <button class="btn-action changelog-toggle-btn">info</button>
+                            </div>
+                        </div>
+
+                        <div class="changelog-log">
+                            <ul class="log-list">
+                                <li data-i18n="log2">added - About us.</li>
+                                <li data-i18n="log3">added - Live telegram channel.</li>
+                                <li data-i18n="log4">added - Telegram channel.</li>
+                                <li data-i18n="log5">added - Changelog.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="page-about" class="page-content">
+                    <h1 class="content-heading" data-i18n="aboutHeading">Who we are</h1>
+                    <p class="content-desc" data-i18n="aboutDesc">Who we are and what we do.</p>
+                    <div class="divider"></div>
+                    <div class="contact-list">
+                        <div class="contact-row">
+                            <div class="contact-info">
+                                <div class="contact-label" data-i18n="founded">Founded:</div>
+                                <div class="contact-value" data-i18n="foundedValue">February 2024</div>
+                            </div>
+                        </div>
+                        <div class="contact-row">
+                            <div class="contact-info">
+                                <div class="contact-label" data-i18n="founders">Founders:</div>
+                                <div class="contact-value founders-value">
+                                    <a class="about-person" href="https://t.me/lurkink" target="_blank" rel="noopener">
+                                        <span class="about-person-name">lur</span>
+                                        <span class="about-person-handle">
+                                            <span class="about-person-handle-inner" data-i18n="handleLurkink">@lurkink</span>
+                                        </span>
+                                    </a>
+                                    <a class="about-person" href="https://t.me/bdsql" target="_blank" rel="noopener">
+                                        <span class="about-person-name">wizzy</span>
+                                        <span class="about-person-handle">
+                                            <span class="about-person-handle-inner" data-i18n="handleBdsql">@bdsql</span>
+                                        </span>
+                                    </a>
+                                    <a class="about-person" href="https://t.me/pereodic" target="_blank" rel="noopener">
+                                        <span class="about-person-name">kabanchek</span>
+                                        <span class="about-person-handle">
+                                            <span class="about-person-handle-inner" data-i18n="handlePereodic">@pereodic</span>
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="contact-row">
+                            <div class="contact-info">
+                                <div class="contact-label" data-i18n="specialization">Specialization:</div>
+                                <div class="contact-value">dalbaeby potsanchiki, delayt panchastoriyyt 🤙 🤙</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="page-product-detail" class="page-content">
+                    <div class="detail-top">
+                        <div class="detail-avatar" id="detailAvatar"></div>
+                        <div class="detail-info">
+                            <div class="detail-meta">
+                                <span class="detail-badge" id="detailBadge">tool</span>
+                                <span class="detail-status" id="detailStatus" style="display:none;"></span>
+                            </div>
+                            <h1 class="detail-name" id="detailName"></h1>
+                        </div>
+                    </div>
+
+                    <div class="detail-divider"></div>
+
+                    <div class="detail-actions-block" id="detailActionsBlock">
+                        <div class="detail-actions">
+                            <a href="#" id="detailGithubBtn" target="_blank" rel="noopener" class="btn-action detail-btn" data-i18n="github">GitHub</a>
+                            <button type="button" id="detailDownloadBtn" class="btn-action detail-btn" data-i18n="directDownload">Direct download</button>
+                            <a href="#" id="detailLuaApiBtn" target="_blank" rel="noopener" class="btn-action detail-btn" data-i18n="luaApi" style="display:none;">Lua API</a>
+                        </div>
+                        <div class="detail-divider"></div>
+                    </div>
+
+                    <div class="detail-screenshots-block" id="detailScreenshotsBlock">
+                        <h2 class="detail-section-title" data-i18n="screenshots">Screenshots</h2>
+                        <div class="detail-screenshots" id="detailScreenshots"></div>
+                        <div class="detail-divider"></div>
+                    </div>
+
+                    <div class="detail-description-block">
+                        <h2 class="detail-section-title" data-i18n="description">Description</h2>
+                        <p class="detail-full-desc" id="detailFullDesc"></p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../translations.js"></script>
+    <script src="../script.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('../service-worker.js').catch(() => {});
+            });
+        }
+    </script>
+</body>
+</html>
