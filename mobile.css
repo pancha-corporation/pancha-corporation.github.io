@@ -11,7 +11,18 @@
     color: inherit;
     flex-shrink: 0;
     z-index: 110;
-    transition: opacity 0.25s ease;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+    outline: none;
+    transition: opacity 0.18s ease;
+}
+
+.burger-btn:focus,
+.burger-btn:active {
+    outline: none;
+    background: transparent;
 }
 
 .burger-btn span {
@@ -20,6 +31,7 @@
     height: 2px;
     background: currentColor;
     border-radius: 2px;
+    transition: none;
 }
 
 body.light .burger-btn {
@@ -29,6 +41,7 @@ body.light .burger-btn {
 .burger-btn.hidden {
     opacity: 0;
     pointer-events: none;
+    visibility: hidden;
 }
 
 .sidebar-overlay {
