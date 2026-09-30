@@ -3,14 +3,15 @@
     background: transparent;
     border: none;
     cursor: pointer;
-    padding: 4px 2px;
+    padding: 0;
     flex-direction: column;
     justify-content: space-between;
     width: 22px;
-    height: 16px;
+    height: 18px;
     color: inherit;
     flex-shrink: 0;
     z-index: 110;
+    transition: opacity 0.25s ease;
 }
 
 .burger-btn span {
@@ -19,26 +20,15 @@
     height: 2px;
     background: currentColor;
     border-radius: 2px;
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                opacity 0.2s ease;
-    transform-origin: center;
 }
 
 body.light .burger-btn {
     color: #1a1c22;
 }
 
-.burger-btn.active span:nth-child(1) {
-    transform: translateY(7px) rotate(45deg);
-}
-
-.burger-btn.active span:nth-child(2) {
+.burger-btn.hidden {
     opacity: 0;
-    transform: scaleX(0);
-}
-
-.burger-btn.active span:nth-child(3) {
-    transform: translateY(-7px) rotate(-45deg);
+    pointer-events: none;
 }
 
 .sidebar-overlay {
@@ -71,7 +61,7 @@ body.light .sidebar-overlay {
         top: 0;
         left: 0;
         height: 100vh;
-        width: 260px;
+        width: 280px;
         padding: 1.6rem 1rem;
         background: #010205;
         z-index: 100;
@@ -98,18 +88,44 @@ body.light .sidebar-overlay {
         background: #f5f6f8;
     }
 
+    .sidebar-logo {
+        font-size: 1.15rem;
+        margin-bottom: 2.4rem;
+        padding: 0.5rem 0.4rem;
+    }
+
+    .sidebar-logo img {
+        width: 28px;
+        height: 28px;
+    }
+
     .sidebar-menu {
         flex-direction: column;
         align-items: flex-start;
         overflow-x: visible;
-        gap: 0.33rem;
+        gap: 0.4rem;
         padding-bottom: 0;
     }
 
     .menu-item {
-        width: fit-content;
-        padding: 0.66rem 1.1rem;
+        width: 100%;
+        padding: 0.85rem 1rem;
+        font-size: 1.08rem;
+        font-weight: 500;
+        border-radius: 14px;
         white-space: normal;
+        gap: 0.75rem;
+    }
+
+    .menu-item svg {
+        width: 22px;
+        height: 22px;
+    }
+
+    .menu-emoji {
+        width: 22px;
+        height: 22px;
+        font-size: 18px;
     }
 
     .menu-item span:not(.menu-emoji) {
@@ -119,9 +135,10 @@ body.light .sidebar-overlay {
     .sidebar-links {
         flex-direction: column;
         flex-wrap: nowrap;
-        gap: 0.5rem;
-        padding: 1.1rem 1.1rem 0;
+        gap: 0.6rem;
+        padding: 1.2rem 1rem 0;
         margin-top: auto;
+        font-size: 0.88rem;
     }
 
     .main {
@@ -134,7 +151,7 @@ body.light .sidebar-overlay {
 
     .topbar {
         justify-content: flex-start;
-        gap: 0.5rem;
+        gap: 0.6rem;
         padding-bottom: 0.9rem;
     }
 
