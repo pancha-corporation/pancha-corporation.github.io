@@ -578,14 +578,14 @@ document.addEventListener('keydown', (e) => {
     function openSidebar() {
         sidebar.classList.add('open');
         overlay.classList.add('open');
-        burgerBtn.classList.add('active');
+        burgerBtn.classList.add('hidden');
         document.body.classList.add('sidebar-locked');
     }
 
     function closeSidebar() {
         sidebar.classList.remove('open');
         overlay.classList.remove('open');
-        burgerBtn.classList.remove('active');
+        burgerBtn.classList.remove('hidden');
         document.body.classList.remove('sidebar-locked');
     }
 
