@@ -303,12 +303,14 @@ body.light .detail-description-block::after {
 body.light .detail-full-desc {
     color: #6b6b6b;
 }
-
 .product-name {
-    cursor: pointer;
     user-select: none;
     text-decoration: none;
     text-underline-offset: 3px;
+}
+
+#page-products .product-name {
+    cursor: pointer;
 }
 
 #page-products .product-name:hover {
