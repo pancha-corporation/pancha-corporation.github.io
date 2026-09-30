@@ -9,6 +9,22 @@ svg {
     vertical-align: middle;
 }
 
+button,
+a,
+.menu-item,
+.btn-action,
+.changelog-toggle-btn,
+.detail-back,
+.detail-screenshot,
+.detail-btn,
+.copy-btn,
+.about-person,
+.burger-btn,
+.user-box {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+}
+
 body {
     background: #010205;
     color: #ffffff;
