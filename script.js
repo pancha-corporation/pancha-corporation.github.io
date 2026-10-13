@@ -149,7 +149,7 @@ function updateWelcomePage() {
     const greetEl = document.getElementById('welcomeGreeting');
     if (!greetEl) return;
 
-    greetEl.textContent = `${t[getGreetingKey()]} 👋`;
+    greetEl.textContent = `${t[getGreetingKey()]} 🎃`;
 }
 
 function updateTopbar(pageId) {
