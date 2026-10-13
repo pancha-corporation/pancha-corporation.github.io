@@ -1,0 +1,241 @@
+.app {
+    display: flex;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    height: 100vh;
+    padding: 0 1.5rem;
+    gap: 2.5rem;
+    background: transparent;
+    align-items: stretch;
+    overflow: hidden;
+}
+
+.sidebar {
+    width: 242px;
+    flex-shrink: 0;
+    height: 100%;
+    padding: 1.6rem 0;
+    display: flex;
+    flex-direction: column;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    overflow: visible;
+}
+
+.sidebar-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.5rem 1rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: inherit;
+    text-decoration: none;
+    margin-bottom: 2.1rem;
+    letter-spacing: -0.3px;
+}
+
+.sidebar-logo-avatar {
+    position: relative;
+    width: 26px;
+    height: 26px;
+    flex-shrink: 0;
+    display: inline-block;
+}
+
+.sidebar-logo-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+    border: none;
+    box-shadow: 0 0 0 1px rgba(255, 117, 24, 0.35), 0 0 8px rgba(255, 117, 24, 0.25);
+    transition: box-shadow 0.25s ease;
+}
+
+.sidebar-logo:hover .sidebar-logo-avatar img {
+    box-shadow: 0 0 0 1px rgba(255, 117, 24, 0.7), 0 0 14px rgba(255, 117, 24, 0.45);
+}
+
+.sidebar-logo-pumpkin {
+    position: absolute;
+    top: -9px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-8deg);
+    font-size: 15px;
+    line-height: 1;
+    pointer-events: none;
+    z-index: 2;
+    filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.6));
+}
+
+.sidebar-logo-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    min-width: 0;
+}
+
+.sidebar-logo-text > span:first-child {
+    display: block;
+    line-height: 1.2;
+}
+
+.sidebar-logo-sub {
+    font-size: 0.66rem;
+    font-weight: 500;
+    letter-spacing: 1.6px;
+    text-transform: lowercase;
+    color: #ff8c42;
+    opacity: 0.75;
+    line-height: 1;
+    transition: opacity 0.25s ease;
+}
+
+.sidebar-logo:hover .sidebar-logo-sub {
+    opacity: 1;
+}
+
+body.light .sidebar-logo-sub {
+    color: #c2540a;
+}
+
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 0.33rem;
+    align-items: flex-start;
+    padding: 0;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.66rem 1.1rem;
+    border-radius: 20px;
+    color: #8a8a8a;
+    text-decoration: none;
+    font-size: 0.96rem;
+    font-weight: 500;
+    cursor: pointer;
+    width: fit-content;
+    transition: color 0.25s ease, background 0.25s ease, border-radius 0.25s ease, box-shadow 0.25s ease;
+}
+
+.menu-item:hover {
+    color: #ffb070;
+    background: #1a0e05;
+    border-radius: 20px;
+    box-shadow: inset 0 0 0 1px rgba(255, 117, 24, 0.15);
+}
+
+.menu-item.active {
+    color: #ff8c42;
+    background: #241207;
+    border-radius: 20px;
+    box-shadow: inset 0 0 0 1px rgba(255, 117, 24, 0.35), 0 0 12px rgba(255, 117, 24, 0.15);
+}
+
+.menu-icon {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    display: block;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    opacity: 0.9;
+}
+
+.menu-item:hover .menu-icon,
+.menu-item.active .menu-icon {
+    opacity: 1;
+}
+
+.menu-emoji {
+    width: 18px;
+    height: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.menu-item > span {
+    display: inline-block;
+    line-height: 1.2;
+}
+
+.sidebar-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1.1rem 1.1rem 0;
+    font-size: 0.81rem;
+    color: #707070;
+}
+
+.sidebar-links a {
+    color: #707070;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.sidebar-links a:hover {
+    color: #ffb070;
+}
+
+.copyright {
+    font-size: 0.73rem;
+    color: #4a4a4a;
+    margin-top: 0.9rem;
+    padding: 0;
+}
+
+body.light .sidebar-logo {
+    color: #1a1c22;
+}
+
+body.light .sidebar-logo-avatar img {
+    box-shadow: 0 0 0 1px rgba(200, 90, 10, 0.35), 0 0 8px rgba(200, 90, 10, 0.2);
+}
+
+body.light .sidebar-logo:hover .sidebar-logo-avatar img {
+    box-shadow: 0 0 0 1px rgba(200, 90, 10, 0.7), 0 0 14px rgba(200, 90, 10, 0.4);
+}
+
+body.light .menu-item {
+    color: #6b6b6b;
+}
+
+body.light .menu-item:hover {
+    color: #c2540a;
+    background: #ffe5d0;
+    box-shadow: inset 0 0 0 1px rgba(200, 90, 10, 0.2);
+}
+
+body.light .menu-item.active {
+    color: #c2540a;
+    background: #ffd4b3;
+    box-shadow: inset 0 0 0 1px rgba(200, 90, 10, 0.4), 0 0 12px rgba(200, 90, 10, 0.12);
+}
+
+body.light .sidebar-links a {
+    color: #6b6b6b;
+}
+
+body.light .sidebar-links a:hover {
+    color: #c2540a;
+}
+
+body.light .copyright {
+    color: #9a9a9a;
+}
