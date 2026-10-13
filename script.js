@@ -228,6 +228,8 @@ function showPage(pageId) {
 
     updateTopbar(pageId);
     localStorage.setItem('currentPage', pageId);
+
+    window.scrollTo(0, 0);
 }
 
 function showProductDetail(index, silent) {
@@ -396,8 +398,7 @@ function showProductDetail(index, silent) {
         document.body.classList.add('product-detail-active');
         if (detailBackText) detailBackText.textContent = t.backToStore;
 
-        const mainEl = document.querySelector('.main');
-        if (mainEl) mainEl.scrollTop = 0;
+        window.scrollTo(0, 0);
     }
 
     localStorage.setItem('currentPage', 'productDetail');
@@ -609,6 +610,55 @@ document.addEventListener('keydown', (e) => {
     window.addEventListener('resize', () => {
         if (window.innerWidth > 768 && sidebar.classList.contains('open')) closeSidebar();
     });
+
+    const EDGE_ZONE = 40;
+    const SWIPE_THRESHOLD = 60;
+
+    let startX = 0;
+    let startY = 0;
+    let tracking = false;
+    let trackingFromEdge = false;
+
+    document.addEventListener('touchstart', (e) => {
+        if (window.innerWidth > 768) return;
+        if (lightbox.classList.contains('open')) return;
+        if (!e.touches || e.touches.length !== 1) return;
+
+        const t = e.touches[0];
+        startX = t.clientX;
+        startY = t.clientY;
+        tracking = true;
+        trackingFromEdge = startX <= EDGE_ZONE && !sidebar.classList.contains('open');
+    }, { passive: true });
+
+    document.addEventListener('touchmove', (e) => {
+        if (!tracking || !e.touches || e.touches.length !== 1) return;
+
+        const t = e.touches[0];
+        const deltaX = t.clientX - startX;
+        const deltaY = t.clientY - startY;
+
+        if (Math.abs(deltaY) > Math.abs(deltaX)) {
+            tracking = false;
+            return;
+        }
+
+        if (trackingFromEdge && deltaX > SWIPE_THRESHOLD) {
+            openSidebar();
+            tracking = false;
+            return;
+        }
+
+        if (sidebar.classList.contains('open') && deltaX < -SWIPE_THRESHOLD) {
+            closeSidebar();
+            tracking = false;
+        }
+    }, { passive: true });
+
+    document.addEventListener('touchend', () => {
+        tracking = false;
+        trackingFromEdge = false;
+    }, { passive: true });
 })();
 
 document.body.classList.add('ready');

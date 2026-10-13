@@ -107,9 +107,23 @@ body.light .sidebar-overlay {
         padding: 0.5rem 0.4rem;
     }
 
-    .sidebar-logo img {
-        width: 28px;
-        height: 28px;
+    .sidebar-logo-avatar {
+        width: 30px;
+        height: 30px;
+        flex: 0 0 30px;
+        min-width: 30px;
+        max-width: 30px;
+        min-height: 30px;
+        max-height: 30px;
+    }
+
+    .sidebar-logo-pumpkin {
+        font-size: 16px;
+        top: -10px;
+    }
+
+    .sidebar-logo-sub {
+        font-size: 0.7rem;
     }
 
     .sidebar-menu {
