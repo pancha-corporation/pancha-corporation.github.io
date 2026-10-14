@@ -12,23 +12,12 @@
     margin-top: 0;
 }
 
+html,
 body,
-body * {
-    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'><g transform='translate(14 14) rotate(-25) translate(-14 -14)'><text x='14' y='20' font-size='18' text-anchor='middle'>🎃</text></g></svg>") 4 4, auto;
-}
-
-a,
-button,
-.menu-item,
-.btn-action,
-.changelog-toggle-btn,
-.detail-back,
-.copy-btn,
-.about-person,
-.burger-btn,
-.topbar-icons svg,
-.detail-screenshot {
-    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'><g transform='translate(14 14) rotate(-25) translate(-14 -14)'><text x='14' y='20' font-size='18' text-anchor='middle'>🎃</text></g></svg>") 4 4, pointer;
+body *,
+body *::before,
+body *::after {
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'><g transform='translate(14 14) rotate(-25) translate(-14 -14)'><text x='14' y='20' font-size='18' text-anchor='middle'>🎃</text></g></svg>") 4 4, auto !important;
 }
 
 body.panel .sidebar,
@@ -666,10 +655,17 @@ body.light .changelog-item::after {
     color: inherit;
     padding: 0.36rem 0;
     font-weight: 400;
+    user-select: text;
+    -webkit-user-select: text;
 }
 
 body.light .log-list li {
     color: #1a1c22;
+}
+
+.changelog-card .product-name {
+    user-select: text;
+    -webkit-user-select: text;
 }
 
 .changelog-item-halloween .product-name {
@@ -755,6 +751,8 @@ body.light .changelog-toggle-btn-halloween:hover {
     padding: 0.4rem 0;
     font-weight: 400;
     line-height: 1.5;
+    user-select: text;
+    -webkit-user-select: text;
 }
 
 body.light .log-list-halloween li {

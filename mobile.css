@@ -1,8 +1,14 @@
+*,
+*::before,
+*::after {
+    -webkit-tap-highlight-color: transparent !important;
+    -webkit-touch-callout: none;
+}
+
 .burger-btn {
     display: none;
     background: transparent;
     border: none;
-    cursor: pointer;
     padding: 0;
     flex-direction: column;
     justify-content: space-between;
@@ -201,5 +207,16 @@ body.light .sidebar-overlay {
 
     body.sidebar-locked {
         overflow: hidden;
+    }
+
+    .btn-action,
+    .changelog-toggle-btn,
+    .changelog-toggle-btn-halloween,
+    .menu-item,
+    .about-person,
+    .burger-btn,
+    .copy-btn,
+    .detail-back {
+        -webkit-tap-highlight-color: transparent !important;
     }
 }
