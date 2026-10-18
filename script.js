@@ -661,4 +661,13 @@ document.addEventListener('keydown', (e) => {
     }, { passive: true });
 })();
 
+const announcementBanner = document.getElementById('announcementBanner');
+const announcementClose = document.getElementById('announcementClose');
+
+if (announcementBanner && announcementClose) {
+    announcementClose.addEventListener('click', () => {
+        announcementBanner.style.display = 'none';
+    });
+}
+
 document.body.classList.add('ready');
