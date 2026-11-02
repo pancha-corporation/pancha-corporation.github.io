@@ -38,17 +38,13 @@
     text-decoration: none;
     margin-bottom: 2.1rem;
     letter-spacing: -0.3px;
+    width: fit-content;
 }
 
 .sidebar-logo-avatar {
-    position: relative;
     width: 26px;
     height: 26px;
-    flex: 0 0 26px;
-    min-width: 26px;
-    max-width: 26px;
-    min-height: 26px;
-    max-height: 26px;
+    flex-shrink: 0;
     display: block;
     border-radius: 50%;
     background-image: url('avatar2.webp');
@@ -56,24 +52,12 @@
     background-position: center;
     background-repeat: no-repeat;
     background-color: #0d0d0d;
-    box-shadow: 0 0 0 1px rgba(255, 117, 24, 0.35), 0 0 8px rgba(255, 117, 24, 0.22);
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.15);
     transition: box-shadow 0.25s ease;
 }
 
 .sidebar-logo:hover .sidebar-logo-avatar {
-    box-shadow: 0 0 0 1px rgba(255, 117, 24, 0.6), 0 0 12px rgba(255, 117, 24, 0.4);
-}
-
-.sidebar-logo-pumpkin {
-    position: absolute;
-    top: -9px;
-    left: 50%;
-    transform: translateX(-50%) rotate(-8deg);
-    font-size: 15px;
-    line-height: 1;
-    pointer-events: none;
-    z-index: 2;
-    filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.6));
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.3);
 }
 
 .sidebar-logo-text {
@@ -86,25 +70,6 @@
 .sidebar-logo-text > span:first-child {
     display: block;
     line-height: 1.2;
-}
-
-.sidebar-logo-sub {
-    font-size: 0.66rem;
-    font-weight: 500;
-    letter-spacing: 1.6px;
-    text-transform: lowercase;
-    color: #ff8c42;
-    opacity: 0.7;
-    line-height: 1;
-    transition: opacity 0.25s ease;
-}
-
-.sidebar-logo:hover .sidebar-logo-sub {
-    opacity: 1;
-}
-
-body.light .sidebar-logo-sub {
-    color: #c2540a;
 }
 
 .sidebar-menu {
@@ -125,22 +90,26 @@ body.light .sidebar-logo-sub {
     text-decoration: none;
     font-size: 0.96rem;
     font-weight: 500;
-    cursor: pointer;
     width: fit-content;
     background: transparent;
     border: none;
     outline: none;
     transition: color 0.25s ease, background 0.25s ease;
+    
+    /* Новые правила для курсора */
+    cursor: default;
+    user-select: text;
+    -webkit-user-select: text;
 }
 
 .menu-item:hover {
-    color: #a87858;
-    background: #080402;
+    color: #d0d0d0;
+    background: rgba(14, 14, 14, 0.6);
 }
 
 .menu-item.active {
-    color: #ff8c42;
-    background: #150a04;
+    color: #ffffff;
+    background: #0E0E0E;
 }
 
 .menu-icon {
@@ -161,17 +130,6 @@ body.light .sidebar-logo-sub {
     opacity: 1;
 }
 
-.menu-emoji {
-    width: 18px;
-    height: 18px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 15px;
-    line-height: 1;
-    flex-shrink: 0;
-}
-
 .menu-item > span {
     display: inline-block;
     line-height: 1.2;
@@ -180,20 +138,48 @@ body.light .sidebar-logo-sub {
 .sidebar-links {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    align-items: flex-start;
+    gap: 0.55rem;
     padding: 1.1rem 1.1rem 0;
     font-size: 0.81rem;
     color: #707070;
 }
 
-.sidebar-links a {
-    color: #707070;
+.sidebar-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    width: fit-content;
+    align-self: flex-start;
+    background: transparent;
+    color: #8a8a8a;
     text-decoration: none;
-    transition: color 0.2s;
+    font-size: 0.81rem;
+    line-height: 1.3;
+    transition: color 0.25s ease;
 }
 
-.sidebar-links a:hover {
-    color: #a87858;
+.sidebar-link-icon {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+    display: block;
+    fill: #8a8a8a;
+    stroke: none;
+    transition: fill 0.25s ease;
+}
+
+.sidebar-link:hover {
+    color: #d0d0d0;
+}
+
+.sidebar-link:hover .sidebar-link-icon {
+    fill: #d0d0d0;
+}
+
+.sidebar-link span {
+    display: inline-block;
+    white-space: nowrap;
 }
 
 .copyright {
@@ -208,12 +194,12 @@ body.light .sidebar-logo {
 }
 
 body.light .sidebar-logo-avatar {
-    box-shadow: 0 0 0 1px rgba(200, 90, 10, 0.35), 0 0 8px rgba(200, 90, 10, 0.2);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
     background-color: #e5e7eb;
 }
 
 body.light .sidebar-logo:hover .sidebar-logo-avatar {
-    box-shadow: 0 0 0 1px rgba(200, 90, 10, 0.6), 0 0 12px rgba(200, 90, 10, 0.35);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2);
 }
 
 body.light .menu-item {
@@ -221,21 +207,29 @@ body.light .menu-item {
 }
 
 body.light .menu-item:hover {
-    color: #8a4818;
-    background: #fff5eb;
+    color: #1a1c22;
+    background: rgba(0, 0, 0, 0.05);
 }
 
 body.light .menu-item.active {
-    color: #c2540a;
-    background: #ffe8d4;
+    color: #1a1c22;
+    background: #e5e7eb;
 }
 
-body.light .sidebar-links a {
+body.light .sidebar-link {
     color: #6b6b6b;
 }
 
-body.light .sidebar-links a:hover {
-    color: #8a4818;
+body.light .sidebar-link-icon {
+    fill: #6b6b6b;
+}
+
+body.light .sidebar-link:hover {
+    color: #1a1c22;
+}
+
+body.light .sidebar-link:hover .sidebar-link-icon {
+    fill: #1a1c22;
 }
 
 body.light .copyright {

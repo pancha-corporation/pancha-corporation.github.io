@@ -72,10 +72,13 @@
                 <span class="line">Pancha</span>
                 <span class="line">corporation</span>
             </div>
-            <div class="home-sub">the бест компания в Morgansk!</div>
+            <div class="home-sub" data-i18n="homeSub">the бест компания в Morgansk!</div>
         </div>
         <div class="home-right">
-            <img src="main.webp" alt="Pancha" />
+            <div class="home-image-block">
+                <img src="main.webp" alt="Pancha" class="main-image" />
+                <div class="image-author">by pain</div>
+            </div>
         </div>
     </div>
 
@@ -97,7 +100,9 @@
 
                 document.querySelectorAll('[data-i18n]').forEach(el => {
                     const key = el.getAttribute('data-i18n');
-                    if (t[key] !== undefined) el.textContent = t[key];
+                    if (t[key] !== undefined && el.textContent !== t[key]) {
+                        el.textContent = t[key];
+                    }
                 });
             }
 
@@ -113,8 +118,6 @@
             document.addEventListener('visibilitychange', () => {
                 if (!document.hidden) applyHomeLanguage();
             });
-
-            setInterval(applyHomeLanguage, 500);
         })();
 
         if ('serviceWorker' in navigator) {

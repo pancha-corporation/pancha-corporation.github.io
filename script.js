@@ -3,76 +3,102 @@ const products = [
         key: 'panchaTool',
         name: 'pancha tool',
         url: 'https://github.com/notLurkink/Pancha-tool',
+        gitlabUrl: 'https://gitlab.com/lurkink/pancha-tool',
         avatar: '../firstavatar1.webp',
         screenshots: ['../info/panchatool.webp'],
         badge: 'python',
-        directDownload: 'https://raw.githubusercontent.com/notLurkink/Pancha-tool/main/fff.py'
+        directDownload: '../files/panchatool.zip'
     },
     {
         key: 'panchaToolSapphire',
         name: 'pancha tool sapphire',
         url: 'https://github.com/notLurkink/Pancha-Tool-sapphire',
+        gitlabUrl: 'https://gitlab.com/lurkink/pancha-tool-sapphire',
         avatar: '../firstavatar8.webp',
         screenshots: ['../info/panchatoolsapphire.webp'],
         badge: 'python',
-        directDownload: 'https://raw.githubusercontent.com/notLurkink/Pancha-Tool-sapphire/main/panchaToolSapphire.py'
+        directDownload: '../files/Pancha_tool_sapphire.zip'
     },
     {
         key: 'panchaTool2',
         name: 'pancha tool 2',
         url: 'https://github.com/notLurkink/panchatool2',
+        gitlabUrl: 'https://gitlab.com/lurkink/pancha-tool-2',
         avatar: '../firstavatar2.webp',
         screenshots: ['../info/panchatool2.webp'],
         badge: 'c++',
-        directDownload: 'https://raw.githubusercontent.com/notLurkink/panchatool2/main/panchaTool2.exe'
+        directDownload: '../files/panchatool2.exe'
     },
     {
         key: 'panchaTool25',
         name: 'pancha tool 2.5',
         url: 'https://github.com/notLurkink/Pancha-tool-2.5',
+        gitlabUrl: 'https://gitlab.com/lurkink/pancha-tool-2.5',
         avatar: '../firstavatar3.webp',
         screenshots: ['../info/panchatool2.5.webp'],
-        badge: 'python',
-        directDownload: 'https://raw.githubusercontent.com/notLurkink/Pancha-tool-2.5/main/pancha%20tool2.5.py'
+        badge: 'python'
     },
     {
         key: 'panchaTool3',
         name: 'pancha tool 3',
         url: 'https://github.com/notLurkink/panchaTool3/releases/tag/panchaCorp',
+        gitlabUrl: 'https://gitlab.com/lurkink/pancha-tool-3',
         avatar: '../firstavatar4.webp',
         screenshots: ['../info/panchatool3.webp'],
         badge: 'python',
-        releaseAsset: { repo: 'notLurkink/panchaTool3', file: 'panchaTool3.zip' }
-    },
-    {
-        key: 'panchaLauncher',
-        name: 'pancha launcher',
-        url: 'https://github.com/notLurkink/panchaLauncher/releases/tag/panchaLoader',
-        avatar: '../firstavatar5.webp',
-        screenshots: ['../info/panchalauncher.webp'],
-        badge: 'c#',
-        releaseAsset: { repo: 'notLurkink/panchaLauncher', file: 'PanchaLauncher.rar' }
-    },
-    {
-        key: 'panchality',
-        name: 'panchality',
-        soon: true,
-        status: 'maintenance',
-        avatar: '../firstavatar7.webp',
-        screenshots: ['../info/panchality.webp'],
-        badge: 'minecraft',
-        luaApi: '#'
+        directDownload: '../files/panchatool3.zip'
     },
     {
         key: 'kabanlo',
         name: 'kabanlo',
         url: 'https://github.com/notLurkink/kabanlo/releases/tag/kabanlo',
+        gitlabUrl: 'https://gitlab.com/lurkink/kabanlo',
         avatar: '../firstavatar6.webp',
         screenshots: ['../info/kabanlo.webp'],
         badge: 'python',
-        releaseAsset: { repo: 'notLurkink/kabanlo', file: 'kabanlo.py' }
+        directDownload: '../files/kabanlo.zip'
     }
 ];
+
+const preloader = document.getElementById('preloader');
+
+if (preloader) {
+    document.body.style.overflow = 'hidden';
+    
+    const imagesToLoad = [];
+    products.forEach(p => {
+        if (p.avatar) imagesToLoad.push(p.avatar);
+        if (p.screenshots) imagesToLoad.push(...p.screenshots);
+    });
+    
+    const uniqueImages = [...new Set(imagesToLoad)];
+    let loadedCount = 0;
+
+    if (uniqueImages.length === 0) {
+        hidePreloader();
+    } else {
+        uniqueImages.forEach(src => {
+            const img = new Image();
+            img.onload = img.onerror = () => {
+                loadedCount++;
+                if (loadedCount === uniqueImages.length) {
+                    hidePreloader();
+                }
+            };
+            img.src = src;
+        });
+    }
+
+    function hidePreloader() {
+        setTimeout(() => {
+            preloader.style.opacity = '0';
+            document.body.style.overflow = '';
+            setTimeout(() => {
+                preloader.style.display = 'none';
+            }, 120);
+        }, 400);
+    }
+}
 
 let currentLang = localStorage.getItem('lang') || 'en';
 let currentProductIndex = 0;
@@ -97,12 +123,39 @@ function getProductComment(p) {
     return '';
 }
 
-function getDirectDownloadUrl(p) {
-    if (p.directDownload) return p.directDownload;
-    if (p.releaseAsset) {
-        return `https://github.com/${p.releaseAsset.repo}/releases/latest/download/${encodeURIComponent(p.releaseAsset.file)}`;
+function getProductReleaseDate(p) {
+    const t = translations[currentLang];
+    if (t.productReleaseDates && t.productReleaseDates[p.key] !== undefined) {
+        return `${t.releaseDate} ${t.productReleaseDates[p.key]}`;
     }
-    return null;
+    return '';
+}
+
+function getDirectDownloadUrl(p) {
+    return p.directDownload || null;
+}
+
+function getBadgeIcon(badge) {
+    const icons = {
+        python: `<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.914 0C5.82 0 6.2 2.656 6.2 2.656l.007 2.752h5.814v.826H3.9S0 5.789 0 11.969c0 6.18 3.403 5.96 3.403 5.96h2.03v-2.867s-.11-3.402 3.348-3.402h5.765s3.235.052 3.235-3.127V3.243S18.307 0 11.914 0zM8.72 1.868a1.053 1.053 0 1 1 0 2.106 1.053 1.053 0 0 1 0-2.106z"/><path d="M12.086 24c6.094 0 5.714-2.656 5.714-2.656l-.007-2.752h-5.814v-.826h8.121S24 18.211 24 12.031c0-6.18-3.403-5.96-3.403-5.96h-2.03v2.867s.11 3.402-3.348 3.402H9.454s-3.235-.052-3.235 3.127v5.29S5.693 24 12.086 24zm3.194-1.868a1.053 1.053 0 1 1 0-2.106 1.053 1.053 0 0 1 0 2.106z"/></svg>`,
+        'c++': `<span class="badge-lang">C<sup>++</sup></span>`,
+        'c#': `<span class="badge-lang">C<sup>#</sup></span>`,
+        java: `<span class="badge-stack"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3.5c-.6 1 .6 1.5 0 2.5s.6 1.5 0 2.5"/><path d="M12.5 3.5c-.6 1 .6 1.5 0 2.5s.6 1.5 0 2.5"/><path d="M16 3.5c-.6 1 .6 1.5 0 2.5s.6 1.5 0 2.5"/><path d="M4.5 9.5h13v3a4 4 0 0 1-4 4h-5a4 4 0 0 1-4-4z"/><path d="M17.5 11h1.2a2.3 2.3 0 0 1 0 4.6h-1.2"/><path d="M3 19.5h16"/></svg><span class="badge-stack-label">java</span></span>`
+    };
+    return icons[badge] || null;
+}
+
+let toastTimer = null;
+function showToast(message) {
+    const toast = document.getElementById('toast');
+    const toastText = document.getElementById('toastText');
+    if (!toast || !toastText) return;
+    toastText.textContent = message;
+    toast.classList.add('show');
+    if (toastTimer) clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => {
+        toast.classList.remove('show');
+    }, 2200);
 }
 
 function renderProducts() {
@@ -113,9 +166,10 @@ function renderProducts() {
         const item = document.createElement('div');
         item.className = 'product-item';
 
+        const linkUrl = p.gitlabUrl || p.url || '#';
         const actionHTML = p.soon
             ? `<span class="btn-action soon">${t[p.status] || t.soon}</span>`
-            : `<a href="${p.url}" target="_blank" class="btn-action">${t.github}</a>`;
+            : `<a href="${linkUrl}" target="_blank" class="btn-action">${t.github}</a>`;
 
         item.innerHTML = `
             <div class="product-avatar">
@@ -132,6 +186,7 @@ function renderProducts() {
         `;
 
         item.querySelector('.product-name').addEventListener('click', () => showProductDetail(index));
+        item.querySelector('.product-avatar').addEventListener('click', () => showProductDetail(index));
         productList.appendChild(item);
     });
 }
@@ -149,7 +204,7 @@ function updateWelcomePage() {
     const greetEl = document.getElementById('welcomeGreeting');
     if (!greetEl) return;
 
-    greetEl.textContent = `${t[getGreetingKey()]} 🎃`;
+    greetEl.textContent = `${t[getGreetingKey()]} 👋`;
 }
 
 function updateTopbar(pageId) {
@@ -165,11 +220,45 @@ function updateTopbar(pageId) {
 
 function refreshChangelogButtons() {
     const t = translations[currentLang];
+
     document.querySelectorAll('.changelog-item').forEach(item => {
         const btn = item.querySelector('.changelog-toggle-btn');
         const log = item.querySelector('.changelog-log');
         if (!btn || !log) return;
-        btn.textContent = log.classList.contains('open') ? t.close : t.info;
+
+        const isOpen = log.classList.contains('open');
+        item.classList.toggle('is-open', isOpen);
+
+        const label = isOpen ? t.close : t.info;
+        const textSpan = btn.querySelector('.halloween-btn-text');
+        if (textSpan) textSpan.textContent = label;
+        else btn.textContent = label;
+    });
+}
+
+function sortChangelogLogs() {
+    const order = {
+        'added': 1, 'добавлено': 1,
+        'fixed': 2, 'исправлено': 2,
+        'reworked': 3, 'changed': 3, 'переработано': 3, 'переработан': 3, 'изменено': 3,
+        'improved': 4, 'улучшено': 4,
+        'removed': 5, 'удалено': 5
+    };
+
+    document.querySelectorAll('.log-list').forEach(list => {
+        const items = Array.from(list.querySelectorAll('li'));
+        items.sort((a, b) => {
+            if (a.getAttribute('data-i18n') === 'log14_13') return -1;
+            if (b.getAttribute('data-i18n') === 'log14_13') return 1;
+            
+            const getOrder = (el) => {
+                const text = el.textContent.trim().toLowerCase();
+                const firstWord = text.split(/[\s-]/)[0];
+                return order[firstWord] || 99;
+            };
+            return getOrder(a) - getOrder(b);
+        });
+        items.forEach(li => list.appendChild(li));
     });
 }
 
@@ -189,14 +278,11 @@ function applyLanguage(lang) {
         }
     });
 
-    document.querySelectorAll('.copy-btn').forEach(btn => {
-        btn.textContent = btn.classList.contains('copied') ? t.copied : t.copy;
-    });
-
     renderProducts();
     updateWelcomePage();
     updateTopbar(currentPageId);
     refreshChangelogButtons();
+    sortChangelogLogs();
 
     if (pages.productDetail && pages.productDetail.classList.contains('active')) {
         showProductDetail(currentProductIndex, true);
@@ -217,11 +303,20 @@ function showPage(pageId) {
         if (item.dataset.page === pageId) item.classList.add('active');
     });
 
+    document.querySelectorAll('.bottom-nav .bottom-nav-item').forEach(item => {
+        item.classList.remove('active');
+        if (item.dataset.page === pageId) item.classList.add('active');
+    });
+
     if (pageId === 'changelog') {
         document.querySelectorAll('.changelog-log').forEach(l => {
             l.classList.remove('open');
         });
+        document.querySelectorAll('.changelog-item').forEach(item => {
+            item.classList.remove('is-open');
+        });
         refreshChangelogButtons();
+        sortChangelogLogs();
     }
 
     if (pageId === 'welcome') updateWelcomePage();
@@ -254,10 +349,31 @@ function showProductDetail(index, silent) {
     avatarEl.appendChild(img);
 
     const badgeEl = document.getElementById('detailBadge');
-    if (badgeEl) badgeEl.textContent = p.badge || 'tool';
+    if (badgeEl) {
+        const icon = getBadgeIcon(p.badge);
+        badgeEl.innerHTML = icon || (p.badge || 'tool');
+    }
 
     const nameEl = document.getElementById('detailName');
-    if (nameEl) nameEl.textContent = p.name;
+    if (nameEl) {
+        if (p.key === 'panchaToolSapphire') {
+            nameEl.innerHTML = 'pancha tool<br>sapphire';
+        } else {
+            nameEl.textContent = p.name;
+        }
+    }
+
+    const dateEl = document.getElementById('detailReleaseDate');
+    if (dateEl) {
+        const dateText = getProductReleaseDate(p);
+        if (dateText) {
+            dateEl.textContent = dateText;
+            dateEl.style.display = '';
+        } else {
+            dateEl.textContent = '';
+            dateEl.style.display = 'none';
+        }
+    }
 
     const descEl = document.getElementById('detailFullDesc');
     if (descEl) descEl.textContent = getProductComment(p);
@@ -273,18 +389,18 @@ function showProductDetail(index, silent) {
         }
     }
 
-    const hasGithub = !!(p.url && !p.soon);
+    const linkUrl = p.gitlabUrl || p.url;
+    const hasGithub = !!(linkUrl && !p.soon);
     const hasDirectUrl = !!getDirectDownloadUrl(p);
     const hasLua = !!p.luaApi;
 
     const showGithub = hasGithub;
-    const showDownload = hasDirectUrl || !!p.soon;
     const showLua = hasLua;
 
     const githubBtn = document.getElementById('detailGithubBtn');
     if (githubBtn) {
         if (showGithub) {
-            githubBtn.href = p.url;
+            githubBtn.href = linkUrl;
             githubBtn.classList.remove('disabled');
             githubBtn.removeAttribute('aria-disabled');
             githubBtn.style.display = '';
@@ -298,22 +414,15 @@ function showProductDetail(index, silent) {
 
     const downloadBtn = document.getElementById('detailDownloadBtn');
     if (downloadBtn) {
-        if (showDownload) {
-            downloadBtn.style.display = '';
-            if (hasDirectUrl && !p.soon) {
-                downloadBtn.classList.remove('disabled');
-                downloadBtn.removeAttribute('aria-disabled');
-                downloadBtn.dataset.url = getDirectDownloadUrl(p);
-            } else {
-                downloadBtn.classList.add('disabled');
-                downloadBtn.setAttribute('aria-disabled', 'true');
-                delete downloadBtn.dataset.url;
-            }
+        downloadBtn.style.display = '';
+        if (hasDirectUrl && !p.soon) {
+            downloadBtn.classList.remove('disabled');
+            downloadBtn.removeAttribute('aria-disabled');
+            downloadBtn.dataset.url = getDirectDownloadUrl(p);
         } else {
             downloadBtn.classList.add('disabled');
             downloadBtn.setAttribute('aria-disabled', 'true');
             delete downloadBtn.dataset.url;
-            downloadBtn.style.display = 'none';
         }
     }
 
@@ -340,7 +449,7 @@ function showProductDetail(index, silent) {
 
     const actionsBlock = document.getElementById('detailActionsBlock');
     if (actionsBlock) {
-        actionsBlock.style.display = (showGithub || showDownload || showLua) ? '' : 'none';
+        actionsBlock.style.display = (showGithub || showLua || downloadBtn) ? '' : 'none';
     }
 
     const screenshotsBlock = document.getElementById('detailScreenshotsBlock');
@@ -352,13 +461,16 @@ function showProductDetail(index, silent) {
 
         if (hasScreenshots) {
             p.screenshots.forEach(src => {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'screenshot-wrapper';
+
                 const shot = document.createElement('img');
                 shot.src = src;
                 shot.alt = p.name;
                 shot.className = 'detail-screenshot';
                 shot.dataset.realSrc = src;
 
-                shot.addEventListener('click', () => {
+                wrapper.addEventListener('click', () => {
                     if (shot.dataset.isMissing === '1') return;
                     openLightbox(shot.dataset.realSrc, p.name);
                 });
@@ -367,18 +479,24 @@ function showProductDetail(index, silent) {
                     if (this.dataset.isMissing === '1') return;
                     this.dataset.isMissing = '1';
                     this.src = '../info/missing.webp';
-                    this.classList.add('missing');
+                    wrapper.classList.add('missing');
                 };
 
-                screenshotsEl.appendChild(shot);
+                wrapper.appendChild(shot);
+                screenshotsEl.appendChild(wrapper);
             });
         } else {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'screenshot-wrapper missing';
+
             const shot = document.createElement('img');
             shot.src = '../info/missing.webp';
             shot.alt = p.name;
-            shot.className = 'detail-screenshot missing';
+            shot.className = 'detail-screenshot';
             shot.dataset.isMissing = '1';
-            screenshotsEl.appendChild(shot);
+            
+            wrapper.appendChild(shot);
+            screenshotsEl.appendChild(wrapper);
         }
 
         if (screenshotsBlock) screenshotsBlock.style.display = '';
@@ -391,6 +509,11 @@ function showProductDetail(index, silent) {
         if (pages.productDetail) pages.productDetail.classList.add('active');
 
         document.querySelectorAll('.sidebar-menu .menu-item').forEach(item => {
+            item.classList.remove('active');
+            if (item.dataset.page === 'products') item.classList.add('active');
+        });
+
+        document.querySelectorAll('.bottom-nav .bottom-nav-item').forEach(item => {
             item.classList.remove('active');
             if (item.dataset.page === 'products') item.classList.add('active');
         });
@@ -412,32 +535,49 @@ document.querySelectorAll('.sidebar-menu .menu-item').forEach(item => {
     });
 });
 
-document.querySelectorAll('.copy-btn').forEach(btn => {
-    btn.addEventListener('click', function () {
-        const text = this.dataset.copy;
-        navigator.clipboard.writeText(text).then(() => {
-            this.textContent = translations[currentLang].copied;
-            this.classList.add('copied');
-            setTimeout(() => {
-                this.textContent = translations[currentLang].copy;
-                this.classList.remove('copied');
-            }, 2000);
-        }).catch(() => alert('Failed to copy.'));
+document.querySelectorAll('.bottom-nav .bottom-nav-item').forEach(item => {
+    item.addEventListener('click', function () {
+        const pageId = this.dataset.page;
+        if (pageId) showPage(pageId);
     });
 });
 
-document.querySelectorAll('.changelog-toggle-btn').forEach(btn => {
-    const item = btn.closest('.changelog-item');
+document.querySelectorAll('.contact-copy').forEach(el => {
+    el.addEventListener('click', function () {
+        const text = this.dataset.copy;
+        if (!text) return;
+        navigator.clipboard.writeText(text).then(() => {
+            showToast(translations[currentLang].successfullyCopied);
+        }).catch(() => {});
+    });
+});
+
+document.querySelectorAll('.changelog-card').forEach(card => {
+    const item = card.closest('.changelog-item');
     if (!item) return;
     const log = item.querySelector('.changelog-log');
-    if (!log) return;
+    const btn = item.querySelector('.changelog-toggle-btn');
+    if (!log || !btn) return;
 
-    btn.textContent = translations[currentLang].info;
+    const textSpan = btn.querySelector('.halloween-btn-text');
 
-    btn.addEventListener('click', function () {
+    function setLabel(label) {
+        if (textSpan) textSpan.textContent = label;
+        else btn.textContent = label;
+    }
+
+    setLabel(translations[currentLang].info);
+
+    const toggle = function (e) {
+        if (e) e.stopPropagation();
         const isOpen = log.classList.toggle('open');
-        btn.textContent = isOpen ? translations[currentLang].close : translations[currentLang].info;
-    });
+        item.classList.toggle('is-open', isOpen);
+        setLabel(isOpen ? translations[currentLang].close : translations[currentLang].info);
+    };
+
+    const header = card.querySelector('.product-header');
+    if (header) header.addEventListener('click', toggle);
+    if (btn) btn.addEventListener('click', toggle);
 });
 
 const welcomeStoreBtn = document.getElementById('welcomeStoreBtn');
@@ -457,19 +597,19 @@ if (detailDownloadBtn) {
         detailDownloadBtn.disabled = true;
         detailDownloadBtn.textContent = '...';
 
+        let filename = 'download';
+        try {
+            const urlObj = new URL(url, window.location.href);
+            const last = urlObj.pathname.split('/').pop();
+            if (last) filename = decodeURIComponent(last);
+        } catch (_) {}
+
         try {
             const response = await fetch(url, { mode: 'cors' });
             if (!response.ok) throw new Error('Network error');
 
             const blob = await response.blob();
             const blobUrl = URL.createObjectURL(blob);
-
-            let filename = 'download';
-            try {
-                const urlObj = new URL(url);
-                const last = urlObj.pathname.split('/').pop();
-                if (last) filename = decodeURIComponent(last);
-            } catch (_) {}
 
             const a = document.createElement('a');
             a.href = blobUrl;
@@ -481,10 +621,18 @@ if (detailDownloadBtn) {
 
             setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
         } catch (err) {
-            window.open(url, '_blank');
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            a.style.display = 'none';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
         } finally {
-            detailDownloadBtn.disabled = false;
-            detailDownloadBtn.textContent = originalText;
+            setTimeout(() => {
+                detailDownloadBtn.disabled = false;
+                detailDownloadBtn.textContent = originalText;
+            }, 500);
         }
     });
 }
@@ -550,124 +698,53 @@ document.body.appendChild(lightbox);
 const lightboxImg = lightbox.querySelector('img');
 const lightboxClose = lightbox.querySelector('.lightbox-close');
 
+let isLightboxZoomed = false;
+
 function openLightbox(src, alt) {
     lightboxImg.src = src;
     lightboxImg.alt = alt || '';
+    isLightboxZoomed = false;
+    lightboxImg.classList.remove('zoomed');
+    lightboxImg.style.transformOrigin = 'center center';
     lightbox.classList.add('open');
     document.body.style.overflow = 'hidden';
 }
 
 function closeLightbox() {
     lightbox.classList.remove('open');
+    lightboxImg.classList.remove('zoomed');
+    lightboxImg.style.transformOrigin = 'center center';
+    isLightboxZoomed = false;
     document.body.style.overflow = '';
     setTimeout(() => { lightboxImg.src = ''; }, 250);
 }
+
+lightboxImg.addEventListener('click', (e) => {
+    e.stopPropagation();
+    
+    if (!isLightboxZoomed) {
+        const rect = lightboxImg.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        
+        lightboxImg.style.transformOrigin = `${x}% ${y}%`;
+        lightboxImg.classList.add('zoomed');
+        isLightboxZoomed = true;
+    } else {
+        lightboxImg.classList.remove('zoomed');
+        setTimeout(() => {
+            if (!isLightboxZoomed) {
+                lightboxImg.style.transformOrigin = 'center center';
+            }
+        }, 300);
+        isLightboxZoomed = false;
+    }
+});
 
 lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
 lightboxClose.addEventListener('click', (e) => { e.stopPropagation(); closeLightbox(); });
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox();
 });
-
-(function initMobileSidebar() {
-    const burgerBtn = document.getElementById('burgerBtn');
-    const sidebar = document.querySelector('.sidebar');
-    const overlay = document.getElementById('sidebarOverlay');
-
-    if (!burgerBtn || !sidebar || !overlay) return;
-
-    function openSidebar() {
-        sidebar.classList.add('open');
-        overlay.classList.add('open');
-        burgerBtn.classList.add('hidden');
-        document.body.classList.add('sidebar-locked');
-    }
-
-    function closeSidebar() {
-        sidebar.classList.remove('open');
-        overlay.classList.remove('open');
-        burgerBtn.classList.remove('hidden');
-        document.body.classList.remove('sidebar-locked');
-    }
-
-    burgerBtn.addEventListener('click', function () {
-        if (sidebar.classList.contains('open')) closeSidebar();
-        else openSidebar();
-    });
-
-    overlay.addEventListener('click', closeSidebar);
-
-    document.querySelectorAll('.sidebar-menu .menu-item').forEach(item => {
-        item.addEventListener('click', () => {
-            if (window.innerWidth <= 768) closeSidebar();
-        });
-    });
-
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && sidebar.classList.contains('open')) closeSidebar();
-    });
-
-    window.addEventListener('resize', () => {
-        if (window.innerWidth > 768 && sidebar.classList.contains('open')) closeSidebar();
-    });
-
-    const EDGE_ZONE = 40;
-    const SWIPE_THRESHOLD = 60;
-
-    let startX = 0;
-    let startY = 0;
-    let tracking = false;
-    let trackingFromEdge = false;
-
-    document.addEventListener('touchstart', (e) => {
-        if (window.innerWidth > 768) return;
-        if (lightbox.classList.contains('open')) return;
-        if (!e.touches || e.touches.length !== 1) return;
-
-        const t = e.touches[0];
-        startX = t.clientX;
-        startY = t.clientY;
-        tracking = true;
-        trackingFromEdge = startX <= EDGE_ZONE && !sidebar.classList.contains('open');
-    }, { passive: true });
-
-    document.addEventListener('touchmove', (e) => {
-        if (!tracking || !e.touches || e.touches.length !== 1) return;
-
-        const t = e.touches[0];
-        const deltaX = t.clientX - startX;
-        const deltaY = t.clientY - startY;
-
-        if (Math.abs(deltaY) > Math.abs(deltaX)) {
-            tracking = false;
-            return;
-        }
-
-        if (trackingFromEdge && deltaX > SWIPE_THRESHOLD) {
-            openSidebar();
-            tracking = false;
-            return;
-        }
-
-        if (sidebar.classList.contains('open') && deltaX < -SWIPE_THRESHOLD) {
-            closeSidebar();
-            tracking = false;
-        }
-    }, { passive: true });
-
-    document.addEventListener('touchend', () => {
-        tracking = false;
-        trackingFromEdge = false;
-    }, { passive: true });
-})();
-
-const announcementBanner = document.getElementById('announcementBanner');
-const announcementClose = document.getElementById('announcementClose');
-
-if (announcementBanner && announcementClose) {
-    announcementClose.addEventListener('click', () => {
-        announcementBanner.style.display = 'none';
-    });
-}
 
 document.body.classList.add('ready');

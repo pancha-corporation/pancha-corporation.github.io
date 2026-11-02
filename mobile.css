@@ -5,177 +5,23 @@
     -webkit-touch-callout: none;
 }
 
-.burger-btn {
+.bottom-nav {
     display: none;
-    background: transparent;
-    border: none;
-    padding: 0;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 22px;
-    height: 18px;
-    color: inherit;
-    flex-shrink: 0;
-    z-index: 110;
-    -webkit-tap-highlight-color: transparent;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    user-select: none;
-    outline: none;
-    transition: opacity 0.18s ease;
-}
-
-.burger-btn:focus,
-.burger-btn:active {
-    outline: none;
-    background: transparent;
-}
-
-.burger-btn span {
-    display: block;
-    width: 100%;
-    height: 2px;
-    background: currentColor;
-    border-radius: 2px;
-    transition: none;
-}
-
-body.light .burger-btn {
-    color: #1a1c22;
-}
-
-.burger-btn.hidden {
-    opacity: 0;
-    pointer-events: none;
-    visibility: hidden;
-}
-
-.sidebar-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.55);
-    z-index: 90;
-    opacity: 0;
-    transition: opacity 0.32s ease;
-    pointer-events: none;
-}
-
-body.light .sidebar-overlay {
-    background: rgba(0, 0, 0, 0.35);
 }
 
 @media (max-width: 768px) {
-
-    .burger-btn {
-        display: inline-flex;
-    }
 
     .app {
         padding: 0 1rem;
     }
 
     .sidebar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 100vh;
-        width: 280px;
-        padding: 1.6rem 1rem;
-        background: #010205;
-        z-index: 100;
-        transform: translateX(-100%);
-        transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
-        overflow-y: auto;
-        overflow-x: hidden;
-        display: flex;
-        flex-direction: column;
-        visibility: visible;
-        scrollbar-width: none;
-        -ms-overflow-style: none;
-    }
-
-    .sidebar::-webkit-scrollbar {
         display: none;
-    }
-
-    .sidebar.open {
-        transform: translateX(0);
-    }
-
-    body.light .sidebar {
-        background: #f5f6f8;
-    }
-
-    .sidebar-logo {
-        font-size: 1.15rem;
-        margin-bottom: 2.4rem;
-        padding: 0.5rem 0.4rem;
-    }
-
-    .sidebar-logo-avatar {
-        width: 30px;
-        height: 30px;
-        flex: 0 0 30px;
-        min-width: 30px;
-        max-width: 30px;
-        min-height: 30px;
-        max-height: 30px;
-    }
-
-    .sidebar-logo-pumpkin {
-        font-size: 16px;
-        top: -10px;
-    }
-
-    .sidebar-logo-sub {
-        font-size: 0.7rem;
-    }
-
-    .sidebar-menu {
-        flex-direction: column;
-        align-items: flex-start;
-        overflow-x: visible;
-        gap: 0.4rem;
-        padding-bottom: 0;
-    }
-
-    .menu-item {
-        width: 100%;
-        padding: 0.85rem 1rem;
-        font-size: 1.08rem;
-        font-weight: 500;
-        border-radius: 14px;
-        white-space: normal;
-        gap: 0.75rem;
-    }
-
-    .menu-item svg {
-        width: 22px;
-        height: 22px;
-    }
-
-    .menu-emoji {
-        width: 22px;
-        height: 22px;
-        font-size: 18px;
-    }
-
-    .menu-item span:not(.menu-emoji) {
-        display: inline-block;
-    }
-
-    .sidebar-links {
-        flex-direction: column;
-        flex-wrap: nowrap;
-        gap: 0.6rem;
-        padding: 1.2rem 1rem 0;
-        margin-top: auto;
-        font-size: 0.88rem;
     }
 
     .main {
         padding: 0.8rem 0 1.5rem;
+        padding-bottom: calc(78px + env(safe-area-inset-bottom));
     }
 
     .content {
@@ -196,27 +42,127 @@ body.light .sidebar-overlay {
         gap: 0.9rem;
     }
 
-    .sidebar-overlay {
+    .bottom-nav {
+        display: flex;
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 90;
+        background: #010205;
+        padding: 0.5rem 0 calc(0.5rem + env(safe-area-inset-bottom));
+        justify-content: space-around;
+        align-items: stretch;
+    }
+
+    .bottom-nav::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(
+            to right,
+            rgba(140, 140, 140, 0) 0%,
+            rgba(140, 140, 140, 0.5) 15%,
+            rgba(140, 140, 140, 0.5) 85%,
+            rgba(140, 140, 140, 0) 100%
+        );
+        pointer-events: none;
+    }
+
+    body.light .bottom-nav {
+        background: #f5f6f8;
+    }
+
+    body.light .bottom-nav::before {
+        background: linear-gradient(
+            to right,
+            rgba(90, 90, 90, 0) 0%,
+            rgba(90, 90, 90, 0.3) 15%,
+            rgba(90, 90, 90, 0.3) 85%,
+            rgba(90, 90, 90, 0) 100%
+        );
+    }
+
+    .bottom-nav-item {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 3px;
+        padding: 0.3rem 0.1rem;
+        background: transparent;
+        border: none;
+        color: #8a8a8a;
+        font-family: 'Inter', sans-serif;
+        font-size: 0.6rem;
+        font-weight: 500;
+        letter-spacing: 0.1px;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        transition: color 0.2s ease;
+        overflow: hidden;
+    }
+
+    .bottom-nav-icon-wrap {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.2s ease;
+        flex-shrink: 0;
+    }
+
+    .bottom-nav-icon {
+        width: 19px;
+        height: 19px;
         display: block;
     }
 
-    .sidebar-overlay.open {
-        opacity: 1;
-        pointer-events: auto;
+    .bottom-nav-emoji {
+        font-size: 17px;
+        line-height: 1;
     }
 
-    body.sidebar-locked {
+    .bottom-nav-label {
+        display: block;
+        max-width: 100%;
+        line-height: 1.1;
+        white-space: nowrap;
         overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .bottom-nav-item.active {
+        color: #ff8c42;
+        font-weight: 700;
+    }
+
+    .bottom-nav-item.active .bottom-nav-icon-wrap {
+        background: #150a04;
+    }
+
+    body.light .bottom-nav-item.active {
+        color: #c2540a;
+    }
+
+    body.light .bottom-nav-item.active .bottom-nav-icon-wrap {
+        background: #ffe8d4;
     }
 
     .btn-action,
     .changelog-toggle-btn,
     .changelog-toggle-btn-halloween,
-    .menu-item,
     .about-person,
-    .burger-btn,
     .copy-btn,
-    .detail-back {
+    .detail-back,
+    .bottom-nav-item {
         -webkit-tap-highlight-color: transparent !important;
     }
 }

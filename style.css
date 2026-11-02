@@ -16,16 +16,11 @@ body {
     text-rendering: optimizeLegibility;
 }
 
-body.light {
-    background: #f5f6f8;
-    color: #1a1c22;
-}
-
 .home-navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 2rem 4rem 1.2rem;
+    padding: 2rem 2rem 1.2rem;
 }
 
 .home-logo {
@@ -57,7 +52,7 @@ body.light {
     display: flex;
     align-items: center;
     gap: 4rem;
-    padding: 0 4rem;
+    padding: 0 2rem;
     height: calc(100vh - 220px);
 }
 
@@ -90,19 +85,45 @@ body.light {
     justify-content: flex-end;
 }
 
-.home-right img {
+/* Блок с картинкой */
+.home-image-block {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5rem;
+}
+
+.main-image {
     max-width: 100%;
     max-height: 60vh;
     border-radius: 16px;
     box-shadow: 0 20px 40px rgba(0,0,0,0.6);
     object-fit: cover;
+    display: block;
+}
+
+/* Текст by pain */
+.image-author {
+    font-size: 0.85rem;
+    color: #4a4a4a;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    margin-top: 0.2rem;
+    pointer-events: none; /* Чтобы текст не мешал наведению */
+    will-change: opacity; /* Для плавности */
+}
+
+.home-image-block:hover .image-author {
+    opacity: 1;
 }
 
 .footer-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 4rem;
+    padding: 1rem 2rem;
     font-size: 0.8rem;
     color: #6b6b6b;
     border-top: 1px solid rgba(120, 120, 120, 0.2);
@@ -128,44 +149,6 @@ body.light {
 
 .footer-links a:hover {
     color: #ffffff;
-}
-
-body.light .home-logo {
-    color: #1a1c22;
-}
-
-body.light .home-logo:hover {
-    color: #4b5563;
-}
-
-body.light .home-panel-link {
-    color: #6b6b6b;
-}
-
-body.light .home-panel-link:hover {
-    color: #1a1c22;
-}
-
-body.light .home-big {
-    color: #1a1c22;
-}
-
-body.light .home-sub {
-    color: #6b6b6b;
-}
-
-body.light .footer-bar {
-    color: #6b6b6b;
-    border-top-color: rgba(80, 80, 80, 0.2);
-    background: #f5f6f8;
-}
-
-body.light .footer-links a {
-    color: #6b6b6b;
-}
-
-body.light .footer-links a:hover {
-    color: #1a1c22;
 }
 
 @media (max-width: 900px) {
@@ -230,13 +213,22 @@ body.light .footer-links a:hover {
         margin-top: 0.5rem;
     }
 
-    .home-right img {
-        max-width: 100%;
+    .home-image-block {
+        width: 100%;
+        align-items: center;
+    }
+
+    .main-image {
         max-height: none;
         width: 100%;
         height: auto;
         border-radius: 14px;
-        box-shadow: 0 14px 30px rgba(0, 0, 0, 0.55);
+    }
+
+    .image-author {
+        font-size: 0.8rem;
+        text-align: center;
+        margin-top: 0.3rem;
     }
 
     .footer-bar {
