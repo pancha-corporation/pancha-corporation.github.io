@@ -140,20 +140,20 @@
     }
 
     .bottom-nav-item.active {
-        color: #ff8c42;
+        color: #ffffff;
         font-weight: 700;
     }
 
     .bottom-nav-item.active .bottom-nav-icon-wrap {
-        background: #150a04;
+        background: #0E0E0E;
     }
 
     body.light .bottom-nav-item.active {
-        color: #c2540a;
+        color: #1a1c22;
     }
 
     body.light .bottom-nav-item.active .bottom-nav-icon-wrap {
-        background: #ffe8d4;
+        background: #e5e7eb;
     }
 
     .btn-action,
