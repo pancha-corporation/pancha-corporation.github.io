@@ -49,6 +49,16 @@ const products = [
         directDownload: '../files/panchatool3.zip'
     },
     {
+        key: 'panchaLauncher',
+        name: 'pancha launcher',
+        url: 'https://github.com/notLurkink/pancha-launcher',
+        gitlabUrl: 'https://gitlab.com/lurkink/pancha-launcher',
+        avatar: '../firstavatar5.webp',
+        screenshots: ['../info/panchalauncher.webp'],
+        badge: 'c#',
+        directDownload: '../files/Plauncher.zip'
+    },
+    {
         key: 'kabanlo',
         name: 'kabanlo',
         url: 'https://github.com/notLurkink/kabanlo/releases/tag/kabanlo',
@@ -218,24 +228,6 @@ function updateTopbar(pageId) {
     }
 }
 
-function refreshChangelogButtons() {
-    const t = translations[currentLang];
-
-    document.querySelectorAll('.changelog-item').forEach(item => {
-        const btn = item.querySelector('.changelog-toggle-btn');
-        const log = item.querySelector('.changelog-log');
-        if (!btn || !log) return;
-
-        const isOpen = log.classList.contains('open');
-        item.classList.toggle('is-open', isOpen);
-
-        const label = isOpen ? t.close : t.info;
-        const textSpan = btn.querySelector('.halloween-btn-text');
-        if (textSpan) textSpan.textContent = label;
-        else btn.textContent = label;
-    });
-}
-
 function sortChangelogLogs() {
     const order = {
         'added': 1, 'добавлено': 1,
@@ -278,10 +270,21 @@ function applyLanguage(lang) {
         }
     });
 
+    document.querySelectorAll('.changelog-item').forEach(item => {
+        const log = item.querySelector('.changelog-log');
+        const btn = item.querySelector('.changelog-toggle-btn');
+        if (log && btn) {
+            const isOpen = log.classList.contains('open');
+            const label = isOpen ? t.close : t.info;
+            const textSpan = btn.querySelector('.halloween-btn-text');
+            if (textSpan) textSpan.textContent = label;
+            else btn.textContent = label;
+        }
+    });
+
     renderProducts();
     updateWelcomePage();
     updateTopbar(currentPageId);
-    refreshChangelogButtons();
     sortChangelogLogs();
 
     if (pages.productDetail && pages.productDetail.classList.contains('active')) {
@@ -314,8 +317,19 @@ function showPage(pageId) {
         });
         document.querySelectorAll('.changelog-item').forEach(item => {
             item.classList.remove('is-open');
+            const btn = item.querySelector('.changelog-toggle-btn');
+            if (btn) {
+                const textSpan = btn.querySelector('.halloween-btn-text');
+                if (textSpan) textSpan.textContent = translations[currentLang].info;
+                else btn.textContent = translations[currentLang].info;
+            }
         });
-        refreshChangelogButtons();
+        document.querySelectorAll('.log-list-wrap').forEach(l => {
+            l.classList.remove('open');
+        });
+        document.querySelectorAll('.changelog-date-header').forEach(h => {
+            h.classList.remove('active');
+        });
         sortChangelogLogs();
     }
 
@@ -578,6 +592,27 @@ document.querySelectorAll('.changelog-card').forEach(card => {
     const header = card.querySelector('.product-header');
     if (header) header.addEventListener('click', toggle);
     if (btn) btn.addEventListener('click', toggle);
+});
+
+document.querySelectorAll('.changelog-date-header').forEach(header => {
+    header.addEventListener('click', function() {
+        const currentWrap = this.nextElementSibling;
+        if (!currentWrap) return;
+
+        const isCurrentlyOpen = currentWrap.classList.contains('open');
+
+        document.querySelectorAll('.log-list-wrap').forEach(wrap => {
+            wrap.classList.remove('open');
+            if (wrap.previousElementSibling) {
+                wrap.previousElementSibling.classList.remove('active');
+            }
+        });
+
+        if (!isCurrentlyOpen) {
+            currentWrap.classList.add('open');
+            this.classList.add('active');
+        }
+    });
 });
 
 const welcomeStoreBtn = document.getElementById('welcomeStoreBtn');

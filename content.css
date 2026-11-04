@@ -651,7 +651,7 @@ body.light .about-person:hover .about-person-name {
 }
 
 .changelog-item .changelog-card {
-    padding-bottom: 0.6rem;
+    padding: 1.1rem 0;
 }
 
 .changelog-item .changelog-card::after {
@@ -685,33 +685,85 @@ body.light .changelog-item::after {
 }
 
 .changelog-log {
+    display: grid;
+    grid-template-rows: 0fr;
     opacity: 0;
-    max-height: 0;
+    transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+}
+
+.changelog-log > .changelog-log-inner {
     overflow: hidden;
-    padding: 0;
-    transition:
-        opacity 0.4s ease,
-        max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-        padding 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    padding-bottom: 0.5rem;
 }
 
 .changelog-log.open {
+    grid-template-rows: 1fr;
     opacity: 1;
-    max-height: 1000px;
-    padding: 0.2rem 0 1.2rem 0;
 }
 
-.log-list {
-    list-style: none;
+.changelog-date-item {
+    position: relative;
+    border-bottom: 1px solid rgba(140, 140, 140, 0.15);
+}
+
+body.light .changelog-date-item {
+    border-bottom-color: rgba(90, 90, 90, 0.15);
+}
+
+.changelog-date-item:last-child {
+    border-bottom: none;
+}
+
+.changelog-date-header {
+    padding: 0.8rem 0;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #8a8a8a;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.changelog-date-header:hover {
+    color: #ffffff;
+}
+
+.changelog-date-header.active {
+    color: #ffffff;
+}
+
+body.light .changelog-date-header:hover {
+    color: #1a1c22;
+}
+
+body.light .changelog-date-header.active {
+    color: #1a1c22;
+}
+
+.log-list-wrap {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+}
+
+.log-list-wrap > .log-list {
+    overflow: hidden;
     padding: 0;
     margin: 0;
+    list-style: none;
+}
+
+.log-list-wrap.open {
+    grid-template-rows: 1fr;
+    opacity: 1;
 }
 
 .log-list li {
-    font-size: 1.03rem;
+    font-size: 0.95rem;
     color: inherit;
-    padding: 0.36rem 0;
+    padding: 0.22rem 0;
     font-weight: 400;
+    line-height: 1.5;
     user-select: text;
     -webkit-user-select: text;
 }
@@ -725,108 +777,17 @@ body.light .log-list li {
     -webkit-user-select: text;
 }
 
-.changelog-card .product-description {
-    position: relative;
-    height: 1.4em;
-    overflow: hidden;
-    line-height: 1.4;
-    font-size: 0.88rem;
-    color: #8a8a8a;
-    font-weight: 400;
-    letter-spacing: 0.2px;
-}
-
-body.light .changelog-card .product-description {
-    color: #6b6b6b;
-}
-
-/* Только заголовок кликабельный */
 .changelog-card .product-header {
     cursor: pointer;
     width: fit-content;
 }
 
-.changelog-item-halloween .product-name {
-    color: #ff8c42;
-    font-weight: 700;
-    letter-spacing: -0.4px;
+.changelog-item.is-open .product-name {
+    color: #ffffff;
 }
 
-.changelog-item-halloween .product-description {
-    color: #c98b56;
-}
-
-body.light .changelog-item-halloween .product-name {
-    color: #c2540a;
-}
-
-body.light .changelog-item-halloween .product-description {
-    color: #a86838;
-}
-
-.changelog-toggle-btn-halloween {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background: #1a0e05;
-    color: #ff8c42;
-    padding: 0.5rem 1.15rem;
-    border: none;
-    box-shadow: none;
-    overflow: visible;
-    transition: background 0.2s ease, color 0.2s ease;
-}
-
-.changelog-toggle-btn-halloween:hover {
-    background: #241207;
-    color: #ffb070;
-}
-
-.changelog-toggle-btn-halloween::after {
-    content: '🎃';
-    position: absolute;
-    top: -8px;
-    right: -6px;
-    font-size: 14px;
-    line-height: 1;
-    pointer-events: none;
-    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.6));
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    transform-origin: center bottom;
-}
-
-.changelog-toggle-btn-halloween:hover::after {
-    transform: rotate(-15deg) scale(1.15);
-}
-
-body.light .changelog-toggle-btn-halloween {
-    background: #ffe8d4;
-    color: #c2540a;
-}
-
-body.light .changelog-toggle-btn-halloween:hover {
-    background: #ffd9b8;
-    color: #a84808;
-}
-
-.halloween-btn-text {
-    display: inline-block;
-    line-height: 1;
-    text-align: center;
-}
-
-.log-list-halloween li {
-    font-size: 1rem;
-    color: #ffb070;
-    font-weight: 400;
-    line-height: 1.5;
-    user-select: text;
-    -webkit-user-select: text;
-}
-
-body.light .log-list-halloween li {
-    color: #c2540a;
+body.light .changelog-item.is-open .product-name {
+    color: #1a1c22;
 }
 
 .toast {
@@ -933,4 +894,41 @@ body.light .toast-icon {
 
 .detail-screenshots-block {
     margin-bottom: 2.2rem;
+}
+
+.changelog-item-halloween .changelog-date-header {
+    color: #ff8c42;
+}
+
+.changelog-item-halloween .changelog-date-header:hover {
+    color: #ffb070;
+}
+
+.changelog-item-halloween .changelog-date-header.active {
+    color: #ffb070;
+}
+
+.log-list-halloween li {
+    font-size: 0.95rem;
+    color: #ffb070;
+    font-weight: 400;
+    line-height: 1.5;
+    user-select: text;
+    -webkit-user-select: text;
+}
+
+body.light .changelog-item-halloween .changelog-date-header {
+    color: #c2540a;
+}
+
+body.light .changelog-item-halloween .changelog-date-header:hover {
+    color: #a13e00;
+}
+
+body.light .changelog-item-halloween .changelog-date-header.active {
+    color: #a13e00;
+}
+
+body.light .log-list-halloween li {
+    color: #c2540a;
 }
