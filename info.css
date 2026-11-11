@@ -219,6 +219,7 @@ body.light .detail-status.maintenance {
     letter-spacing: -0.6px;
     line-height: 1.15;
     margin: 0;
+    word-break: break-word;
 }
 
 .detail-release-date {

@@ -20,6 +20,7 @@ let startX = 0;
 let startY = 0;
 let lastX = 0;
 let lastY = 0;
+let lightboxTimeout = null;
 
 function updateImgTransform() {
     if (isLightboxZoomed) {
@@ -129,6 +130,11 @@ lightboxImg.addEventListener('click', (e) => {
 });
 
 window.openLightbox = function(src, alt) {
+    if (lightboxTimeout) {
+        clearTimeout(lightboxTimeout);
+        lightboxTimeout = null;
+    }
+    
     lightboxImg.src = src;
     lightboxImg.alt = alt || '';
     isLightboxZoomed = false;
@@ -153,7 +159,15 @@ window.closeLightbox = function() {
     lightboxImg.style.transform = 'translate(0px, 0px) scale(1)';
     lightboxImg.classList.remove('zoomed');
     document.body.style.overflow = '';
-    setTimeout(() => { lightboxImg.src = ''; }, 250);
+    
+    if (lightboxTimeout) {
+        clearTimeout(lightboxTimeout);
+    }
+    
+    lightboxTimeout = setTimeout(() => { 
+        lightboxImg.src = ''; 
+        lightboxTimeout = null;
+    }, 250);
 };
 
 lightbox.addEventListener('click', (e) => { if (e.target === lightbox) window.closeLightbox(); });
