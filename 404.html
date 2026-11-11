@@ -21,8 +21,7 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
             min-height: 100vh;
             display: flex;
-            align-items: center;
-            justify-content: center;
+            flex-direction: column;
             padding: 2rem;
         }
         .err-wrap {
@@ -33,6 +32,7 @@
             text-align: center;
             max-width: 440px;
             width: 100%;
+            margin: auto;
         }
         .err-avatar {
             width: 96px;
@@ -60,23 +60,65 @@
             line-height: 1.55;
             font-weight: 400;
         }
-        .err-btn {
-            margin-top: 0.4rem;
-            padding: 0.65rem 1.5rem;
-            border-radius: 999px;
-            background: #ffffff;
-            color: #0a0b0e;
-            border: none;
-            font-family: inherit;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.2s;
-            text-decoration: none;
-            display: inline-block;
+        .timer-circle {
+            position: relative;
+            width: 64px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: default;
+            margin-top: 1rem;
         }
-        .err-btn:hover {
-            background: #d8d8d8;
+        .timer-circle svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+        .timer-bg {
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.1);
+            stroke-width: 6;
+        }
+        .timer-progress {
+            fill: none;
+            stroke: #ffffff;
+            stroke-width: 6;
+            stroke-linecap: round;
+            stroke-dasharray: 283;
+            stroke-dashoffset: 0;
+            transition: stroke-dashoffset 1s linear;
+        }
+        .timer-text {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #ffffff;
+            z-index: 1;
+        }
+        .timer-circle::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(8px);
+            color: #8a8a8a;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            width: max-content;
+            max-width: 280px;
+            text-align: center;
+            line-height: 1.4;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+            will-change: opacity;
+        }
+        .timer-circle:hover::after {
+            opacity: 1;
         }
         @media (max-width: 480px) {
             .err-avatar {
@@ -92,6 +134,13 @@
             .err-desc {
                 font-size: 0.92rem;
             }
+            .timer-circle {
+                width: 56px;
+                height: 56px;
+            }
+            .timer-text {
+                font-size: 1.2rem;
+            }
         }
     </style>
 </head>
@@ -101,7 +150,13 @@
         <div class="err-title">Pancha corporation</div>
         <div class="err-code">404</div>
         <div class="err-desc" id="errDesc">Page not found.</div>
-        <a class="err-btn" id="errBack" href="/">Back</a>
+        <div class="timer-circle" id="timerCircle">
+            <svg viewBox="0 0 100 100">
+                <circle class="timer-bg" cx="50" cy="50" r="45" />
+                <circle class="timer-progress" cx="50" cy="50" r="45" />
+            </svg>
+            <span class="timer-text" id="timerText">10</span>
+        </div>
     </div>
 
     <script>
@@ -110,17 +165,44 @@
             const texts = {
                 en: {
                     desc: 'Page not found.',
-                    back: 'Back'
+                    redirectTooltip: 'You will be redirected to the main page automatically in {s} seconds'
                 },
                 ru: {
                     desc: 'Страница не найдена.',
-                    back: 'Назад'
+                    redirectTooltip: 'Вы будете перенаправлены на главную страницу автоматически через {s} секунд'
                 }
             };
             const t = texts[lang] || texts.en;
             document.getElementById('errDesc').textContent = t.desc;
-            document.getElementById('errBack').textContent = t.back;
             document.documentElement.lang = lang;
+
+            const timerCircle = document.getElementById('timerCircle');
+            const timerProgress = document.querySelector('.timer-progress');
+            const timerText = document.getElementById('timerText');
+            let timeLeft = 10;
+            const totalTime = 10;
+            const circumference = 2 * Math.PI * 45;
+
+            function updateTooltip() {
+                timerCircle.setAttribute('data-tooltip', t.redirectTooltip.replace('{s}', timeLeft));
+            }
+            
+            updateTooltip();
+            timerText.textContent = timeLeft;
+            timerProgress.style.strokeDashoffset = 0;
+
+            const interval = setInterval(() => {
+                timeLeft--;
+                if (timeLeft < 0) {
+                    clearInterval(interval);
+                    window.location.href = '/';
+                    return;
+                }
+                timerText.textContent = timeLeft;
+                updateTooltip();
+                const offset = circumference - (timeLeft / totalTime) * circumference;
+                timerProgress.style.strokeDashoffset = offset;
+            }, 1000);
         })();
     </script>
 </body>

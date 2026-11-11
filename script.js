@@ -726,7 +726,7 @@ const lightbox = document.createElement('div');
 lightbox.className = 'lightbox';
 lightbox.innerHTML = `
     <button class="lightbox-close" type="button" aria-label="Close">✕</button>
-    <img src="" alt="">
+    <img src="" alt="" draggable="false">
 `;
 document.body.appendChild(lightbox);
 
@@ -734,22 +734,85 @@ const lightboxImg = lightbox.querySelector('img');
 const lightboxClose = lightbox.querySelector('.lightbox-close');
 
 let isLightboxZoomed = false;
+let isDragging = false;
+let hasDragged = false;
+let dragStartX = 0;
+let dragStartY = 0;
+let imgTranslateX = 0;
+let imgTranslateY = 0;
+
+function updateImgTransform() {
+    if (isLightboxZoomed) {
+        lightboxImg.style.transform = `translate(${imgTranslateX}px, ${imgTranslateY}px) scale(2)`;
+    } else {
+        lightboxImg.style.transform = `translate(0px, 0px) scale(1)`;
+    }
+}
+
+function startDrag(e) {
+    if (!isLightboxZoomed) return;
+    e.preventDefault();
+    isDragging = true;
+    hasDragged = false;
+    lightboxImg.style.transition = 'none';
+    
+    const clientX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
+    const clientY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
+    
+    dragStartX = clientX - imgTranslateX;
+    dragStartY = clientY - imgTranslateY;
+}
+
+function drag(e) {
+    if (!isDragging) return;
+    hasDragged = true;
+    
+    const clientX = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
+    const clientY = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
+    
+    imgTranslateX = clientX - dragStartX;
+    imgTranslateY = clientY - dragStartY;
+    
+    updateImgTransform();
+}
+
+function endDrag() {
+    if (!isDragging) return;
+    isDragging = false;
+    lightboxImg.style.transition = 'transform 0.3s ease';
+}
+
+lightboxImg.addEventListener('mousedown', startDrag);
+lightboxImg.addEventListener('touchstart', startDrag, { passive: false });
+window.addEventListener('mousemove', drag);
+window.addEventListener('touchmove', drag, { passive: false });
+window.addEventListener('mouseup', endDrag);
+window.addEventListener('touchend', endDrag);
 
 function openLightbox(src, alt) {
     lightboxImg.src = src;
     lightboxImg.alt = alt || '';
     isLightboxZoomed = false;
+    isDragging = false;
+    hasDragged = false;
+    imgTranslateX = 0;
+    imgTranslateY = 0;
+    lightboxImg.style.transition = 'transform 0.3s ease';
+    lightboxImg.style.transform = 'translate(0px, 0px) scale(1)';
     lightboxImg.classList.remove('zoomed');
-    lightboxImg.style.transformOrigin = 'center center';
     lightbox.classList.add('open');
     document.body.style.overflow = 'hidden';
 }
 
 function closeLightbox() {
     lightbox.classList.remove('open');
-    lightboxImg.classList.remove('zoomed');
-    lightboxImg.style.transformOrigin = 'center center';
     isLightboxZoomed = false;
+    isDragging = false;
+    hasDragged = false;
+    imgTranslateX = 0;
+    imgTranslateY = 0;
+    lightboxImg.style.transform = 'translate(0px, 0px) scale(1)';
+    lightboxImg.classList.remove('zoomed');
     document.body.style.overflow = '';
     setTimeout(() => { lightboxImg.src = ''; }, 250);
 }
@@ -757,22 +820,30 @@ function closeLightbox() {
 lightboxImg.addEventListener('click', (e) => {
     e.stopPropagation();
     
+    if (hasDragged) {
+        hasDragged = false;
+        return;
+    }
+
     if (!isLightboxZoomed) {
         const rect = lightboxImg.getBoundingClientRect();
-        const x = ((e.clientX - rect.left) / rect.width) * 100;
-        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const cx = rect.width / 2;
+        const cy = rect.height / 2;
         
-        lightboxImg.style.transformOrigin = `${x}% ${y}%`;
-        lightboxImg.classList.add('zoomed');
+        imgTranslateX = cx - x;
+        imgTranslateY = cy - y;
+        
         isLightboxZoomed = true;
+        lightboxImg.classList.add('zoomed');
+        updateImgTransform();
     } else {
-        lightboxImg.classList.remove('zoomed');
-        setTimeout(() => {
-            if (!isLightboxZoomed) {
-                lightboxImg.style.transformOrigin = 'center center';
-            }
-        }, 300);
         isLightboxZoomed = false;
+        imgTranslateX = 0;
+        imgTranslateY = 0;
+        lightboxImg.classList.remove('zoomed');
+        updateImgTransform();
     }
 });
 

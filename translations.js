@@ -99,6 +99,8 @@ const translations = {
         log14_18: 'reworked - downloading',
         log14_19: 'fixed - accordion animation speed',
         log14_20: 'fixed - active date highlighting',
+        log14_21: 'reworked - Changelog',
+        log14_22: 'reworked - main page',
         productComments: {
             panchaLauncher: 'Launcher for Pancha Corporation products.',
             panchaTool: 'The behinninh of a gread hackenk tool.',
@@ -218,6 +220,8 @@ const translations = {
         log14_18: 'переработано - скачивание',
         log14_19: 'исправлено - скорость анимации аккордеона',
         log14_20: 'исправлено - подсветка активной даты',
+        log14_21: 'переработано - ченджлог',
+        log14_22: 'переработано - главная страница',
         productComments: {
             panchaLauncher: 'Лаунчер для продуктов от Pancha Corporation.',
             panchaTool: 'Начало великого хацкерского инструмента.',

@@ -124,7 +124,6 @@ body.light .detail-avatar {
     padding-top: 0.3rem;
 }
 
-/* Изменено для правильного обтекания текста */
 .detail-meta {
     display: block;
     position: relative;
@@ -416,11 +415,13 @@ body.light .detail-full-desc {
     transform: scale(0.96);
     transition: transform 0.3s ease;
     transform-origin: center center;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-drag: none;
 }
 
 .lightbox img.zoomed {
     cursor: zoom-out;
-    transform: scale(2);
 }
 
 .lightbox.open img {
