@@ -370,11 +370,7 @@ function showProductDetail(index, silent) {
 
     const nameEl = document.getElementById('detailName');
     if (nameEl) {
-        if (p.key === 'panchaToolSapphire') {
-            nameEl.innerHTML = 'pancha tool<br>sapphire';
-        } else {
-            nameEl.textContent = p.name;
-        }
+        nameEl.textContent = p.name;
     }
 
     const dateEl = document.getElementById('detailReleaseDate');

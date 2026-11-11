@@ -10,14 +10,16 @@ const lightboxImg = lightbox.querySelector('img');
 const lightboxClose = lightbox.querySelector('.lightbox-close');
 
 let isLightboxZoomed = false;
-let isDragging = false;
+let isPointerDown = false;
 let hasDragged = false;
 let dragStartX = 0;
 let dragStartY = 0;
 let imgTranslateX = 0;
 let imgTranslateY = 0;
-let startTouchX = 0;
-let startTouchY = 0;
+let startX = 0;
+let startY = 0;
+let lastX = 0;
+let lastY = 0;
 
 function updateImgTransform() {
     if (isLightboxZoomed) {
@@ -27,97 +29,110 @@ function updateImgTransform() {
     }
 }
 
-function handleStart(e) {
+function onPointerDown(e) {
     const clientX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
     const clientY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
     
-    startTouchX = clientX;
-    startTouchY = clientY;
+    lastX = clientX;
+    lastY = clientY;
+    startX = clientX;
+    startY = clientY;
+    
+    isPointerDown = true;
     hasDragged = false;
     
+    dragStartX = clientX - imgTranslateX;
+    dragStartY = clientY - imgTranslateY;
+    
     if (isLightboxZoomed) {
-        isDragging = true;
         lightboxImg.style.transition = 'none';
-        dragStartX = clientX - imgTranslateX;
-        dragStartY = clientY - imgTranslateY;
     }
 }
 
-function handleMove(e) {
-    if (!isDragging) return;
+function onPointerMove(e) {
+    if (!isPointerDown || !isLightboxZoomed) return;
     
     const clientX = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
     const clientY = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
     
-    if (Math.abs(clientX - startTouchX) > 5 || Math.abs(clientY - startTouchY) > 5) {
+    lastX = clientX;
+    lastY = clientY;
+    
+    if (Math.abs(clientX - startX) > 5 || Math.abs(clientY - startY) > 5) {
         hasDragged = true;
-    }
-    
-    imgTranslateX = clientX - dragStartX;
-    imgTranslateY = clientY - dragStartY;
-    updateImgTransform();
-    
-    if (e.type === 'touchmove') {
-        e.preventDefault();
+        imgTranslateX = clientX - dragStartX;
+        imgTranslateY = clientY - dragStartY;
+        updateImgTransform();
+        
+        if (e.cancelable) e.preventDefault();
     }
 }
 
-function handleEnd(e) {
-    if (isDragging) {
-        isDragging = false;
+function onPointerUp(e) {
+    if (!isPointerDown) return;
+    isPointerDown = false;
+    
+    if (e.type === 'touchend' && e.changedTouches && e.changedTouches.length > 0) {
+        lastX = e.changedTouches[0].clientX;
+        lastY = e.changedTouches[0].clientY;
+    } else if (e.type === 'mouseup' && e.clientX !== undefined) {
+        lastX = e.clientX;
+        lastY = e.clientY;
+    }
+    
+    if (isLightboxZoomed) {
         lightboxImg.style.transition = 'transform 0.3s ease';
     }
-    
-    if (!hasDragged) {
-        let clientX, clientY;
-        if (e.type === 'touchend') {
-            if (e.changedTouches && e.changedTouches.length > 0) {
-                clientX = e.changedTouches[0].clientX;
-                clientY = e.changedTouches[0].clientY;
-            } else {
-                clientX = startTouchX;
-                clientY = startTouchY;
-            }
-        } else {
-            clientX = e.clientX;
-            clientY = e.clientY;
-        }
-
-        if (!isLightboxZoomed) {
-            const rect = lightboxImg.getBoundingClientRect();
-            const x = clientX - rect.left;
-            const y = clientY - rect.top;
-            const cx = rect.width / 2;
-            const cy = rect.height / 2;
-            
-            imgTranslateX = cx - x;
-            imgTranslateY = cy - y;
-            
-            isLightboxZoomed = true;
-            lightboxImg.classList.add('zoomed');
-            updateImgTransform();
-        } else {
-            isLightboxZoomed = false;
-            imgTranslateX = 0;
-            imgTranslateY = 0;
-            lightboxImg.classList.remove('zoomed');
-            updateImgTransform();
-        }
-    }
 }
 
-lightboxImg.addEventListener('mousedown', handleStart);
-lightboxImg.addEventListener('touchstart', handleStart, { passive: true });
-window.addEventListener('mousemove', handleMove);
-window.addEventListener('touchmove', handleMove, { passive: false });
-window.addEventListener('mouseup', handleEnd);
-window.addEventListener('touchend', handleEnd);
+lightboxImg.addEventListener('mousedown', onPointerDown);
+lightboxImg.addEventListener('touchstart', onPointerDown, { passive: true });
+window.addEventListener('mousemove', onPointerMove, { passive: false });
+window.addEventListener('touchmove', onPointerMove, { passive: false });
+window.addEventListener('mouseup', onPointerUp);
+window.addEventListener('touchend', onPointerUp);
+
+lightboxImg.addEventListener('click', (e) => {
+    if (hasDragged) {
+        hasDragged = false;
+        return;
+    }
+
+    let clickX = lastX;
+    let clickY = lastY;
+    
+    if (e.clientX !== undefined && e.clientX !== 0) {
+        clickX = e.clientX;
+        clickY = e.clientY;
+    }
+
+    if (!isLightboxZoomed) {
+        const rect = lightboxImg.getBoundingClientRect();
+        const x = clickX - rect.left;
+        const y = clickY - rect.top;
+        const cx = rect.width / 2;
+        const cy = rect.height / 2;
+        
+        imgTranslateX = cx - x;
+        imgTranslateY = cy - y;
+        
+        isLightboxZoomed = true;
+        lightboxImg.classList.add('zoomed');
+        updateImgTransform();
+    } else {
+        isLightboxZoomed = false;
+        imgTranslateX = 0;
+        imgTranslateY = 0;
+        lightboxImg.classList.remove('zoomed');
+        updateImgTransform();
+    }
+});
 
 window.openLightbox = function(src, alt) {
     lightboxImg.src = src;
     lightboxImg.alt = alt || '';
     isLightboxZoomed = false;
-    isDragging = false;
+    isPointerDown = false;
     hasDragged = false;
     imgTranslateX = 0;
     imgTranslateY = 0;
@@ -131,7 +146,7 @@ window.openLightbox = function(src, alt) {
 window.closeLightbox = function() {
     lightbox.classList.remove('open');
     isLightboxZoomed = false;
-    isDragging = false;
+    isPointerDown = false;
     hasDragged = false;
     imgTranslateX = 0;
     imgTranslateY = 0;
