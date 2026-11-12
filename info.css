@@ -7,7 +7,7 @@
     padding-bottom: 1rem;
     position: relative;
     gap: 0.6rem;
-    flex-shrink: 0;
+    width: 100%;
 }
 
 .topbar::after {
@@ -42,10 +42,16 @@ body.light .topbar::after {
     font-weight: 700;
     color: inherit;
     letter-spacing: -0.3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+    flex-shrink: 1;
 }
 
 .topbar-spacer {
     flex: 1;
+    min-width: 0.5rem;
 }
 
 .detail-back {
