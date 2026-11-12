@@ -802,7 +802,7 @@ body.light .changelog-item.is-open .product-name {
 }
 
 .changelog-item-halloween .changelog-date-header:hover {
-    color: #ffffff;
+    color: #ffb070;
 }
 
 .changelog-item-halloween .changelog-date-header.active {
@@ -818,7 +818,7 @@ body.light .changelog-item-halloween .changelog-date-header {
 }
 
 body.light .changelog-item-halloween .changelog-date-header:hover {
-    color: #1a1c22;
+    color: #a13e00;
 }
 
 body.light .changelog-item-halloween .changelog-date-header.active {
