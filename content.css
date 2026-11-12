@@ -746,43 +746,6 @@ body.light .changelog-date-header.active {
     color: #1a1c22;
 }
 
-.changelog-item-halloween .changelog-date-header {
-    color: #ff8c42;
-}
-
-.changelog-item-halloween .changelog-date-header:hover {
-    color: #ffb070;
-}
-
-.changelog-item-halloween .changelog-date-header.active {
-    color: #ffb070;
-}
-
-.log-list-halloween li {
-    font-size: 0.95rem;
-    color: #ffb070;
-    font-weight: 400;
-    line-height: 1.5;
-    user-select: text;
-    -webkit-user-select: text;
-}
-
-body.light .changelog-item-halloween .changelog-date-header {
-    color: #c2540a;
-}
-
-body.light .changelog-item-halloween .changelog-date-header:hover {
-    color: #a13e00;
-}
-
-body.light .changelog-item-halloween .changelog-date-header.active {
-    color: #a13e00;
-}
-
-body.light .log-list-halloween li {
-    color: #c2540a;
-}
-
 .log-list-wrap {
     display: grid;
     grid-template-rows: 0fr;
@@ -832,6 +795,38 @@ body.light .log-list li {
 
 body.light .changelog-item.is-open .product-name {
     color: #1a1c22;
+}
+
+.changelog-item-halloween .changelog-date-header {
+    color: #ff8c42;
+}
+
+.changelog-item-halloween .changelog-date-header:hover {
+    color: #ffffff;
+}
+
+.changelog-item-halloween .changelog-date-header.active {
+    color: #ff8c42;
+}
+
+.changelog-item-halloween .log-list li {
+    color: #ff8c42;
+}
+
+body.light .changelog-item-halloween .changelog-date-header {
+    color: #c2540a;
+}
+
+body.light .changelog-item-halloween .changelog-date-header:hover {
+    color: #1a1c22;
+}
+
+body.light .changelog-item-halloween .changelog-date-header.active {
+    color: #c2540a;
+}
+
+body.light .changelog-item-halloween .log-list li {
+    color: #c2540a;
 }
 
 .toast {
