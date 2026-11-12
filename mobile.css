@@ -13,6 +13,7 @@
 
     .app {
         padding: 0 1rem;
+        align-items: stretch;
     }
 
     .sidebar {
@@ -22,6 +23,7 @@
     .main {
         padding: 0.8rem 0 1.5rem;
         padding-bottom: calc(78px + env(safe-area-inset-bottom));
+        width: 100%;
     }
 
     .content {
