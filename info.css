@@ -225,7 +225,7 @@ body.light .detail-status.maintenance {
     letter-spacing: -0.6px;
     line-height: 1.15;
     margin: 0;
-    word-break: break-word;
+    white-space: nowrap;
 }
 
 .detail-release-date {
@@ -288,6 +288,10 @@ body.light .detail-divider::before {
     padding: 0.65rem 1.5rem;
     font-size: 0.92rem;
     border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
 .detail-screenshots-block {
@@ -479,10 +483,15 @@ body.light .lightbox {
         font-size: 2.5rem;
     }
     .detail-name {
-        font-size: 1.6rem;
+        font-size: 1.3rem;
+        white-space: nowrap;
     }
     .detail-badge .badge-lang {
-        font-size: 1.4rem;
+        font-size: 1.2rem;
+    }
+    .detail-badge svg {
+        width: 1.5em;
+        height: 1.5em;
     }
     .detail-release-date {
         font-size: 0.88rem;
@@ -493,6 +502,8 @@ body.light .lightbox {
     .detail-btn {
         flex: 1;
         min-width: 0;
+        padding: 0.65rem 0.8rem;
+        font-size: 0.88rem;
     }
     .detail-screenshot {
         max-width: 100%;
