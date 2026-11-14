@@ -36,6 +36,15 @@ a,
     -webkit-touch-callout: none;
 }
 
+button,
+a,
+.btn-action,
+.changelog-toggle-btn,
+.detail-back,
+.detail-btn {
+    cursor: pointer;
+}
+
 body {
     background: #010205;
     color: #ffffff;

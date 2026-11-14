@@ -95,11 +95,9 @@
     border: none;
     outline: none;
     transition: color 0.25s ease, background 0.25s ease;
-    
-    /* Новые правила для курсора */
-    cursor: default;
-    user-select: text;
-    -webkit-user-select: text;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
 }
 
 .menu-item:hover {
@@ -157,6 +155,7 @@
     font-size: 0.81rem;
     line-height: 1.3;
     transition: color 0.25s ease;
+    cursor: pointer;
 }
 
 .sidebar-link-icon {
