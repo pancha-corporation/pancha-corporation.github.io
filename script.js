@@ -294,6 +294,9 @@ function applyLanguage(lang) {
 
 function showPage(pageId) {
     if (!pages[pageId]) return;
+    
+    if (currentPageId === pageId) return;
+
     currentPageId = pageId;
 
     Object.values(pages).forEach(p => {
@@ -583,6 +586,15 @@ document.querySelectorAll('.changelog-card').forEach(card => {
         const isOpen = log.classList.toggle('open');
         item.classList.toggle('is-open', isOpen);
         setLabel(isOpen ? translations[currentLang].close : translations[currentLang].info);
+
+        if (!isOpen) {
+            item.querySelectorAll('.log-list-wrap').forEach(wrap => {
+                wrap.classList.remove('open');
+                if (wrap.previousElementSibling) {
+                    wrap.previousElementSibling.classList.remove('active');
+                }
+            });
+        }
     };
 
     const header = card.querySelector('.product-header');
