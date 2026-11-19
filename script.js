@@ -112,7 +112,7 @@ if (preloader) {
 
 let currentLang = localStorage.getItem('lang') || 'en';
 let currentProductIndex = 0;
-let currentPageId = 'welcome';
+let currentPageId = null;
 
 const productList = document.getElementById('productList');
 const topbarTitle = document.getElementById('topbarTitle');
